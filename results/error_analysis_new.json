@@ -1,0 +1,246 @@
+{
+  "summary": {
+    "total_samples": 1597,
+    "correct": 367,
+    "total_errors": 1230,
+    "error_rate": 0.7701941139636819,
+    "error_distribution": {
+      "missing_marker": 50,
+      "wrong_region": 1179,
+      "over_dialect": 1
+    }
+  },
+  "sampled_errors": [
+    {
+      "source": "thuốc xịn thì không có lợi nhuận.",
+      "reference": "thuốc xịn bơ không có lợi nhuận.",
+      "prediction": "thuốc xịn thì không có lợi nhuận.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "nói không xuể, cả 1 rỗ đây.",
+      "reference": "nói chi ngạ, cả 1 rỗ đây.",
+      "prediction": "nói không xuể, cả 1 rỗ đây.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Mùa thu đẹp thôi rồi.",
+      "reference": "Thu hắn đẹp cấy chi chi.",
+      "prediction": "Mùa thu đẹp thôi rồi.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Để bảo viết lại, chứ nhìn thấy 6 chị em rõ ràng mà bảo 5.",
+      "reference": "Để nhủ viết lại, chơ nhìn chộ 6 chị em rọ ràng mà kêu 5.",
+      "prediction": "Để vẹ viết lại, chơ nhìn thấy 6 chị em rõ ràng mà vẹ 5.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Được cái nói rõ đúng.",
+      "reference": "Được cấy nói rành đúng tê.",
+      "prediction": "Được cấy nói rõ đúng.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Thêm dấu phẩy vào đi, đọc đau đầu quá.",
+      "reference": "Thêm dấu phẩy vào đi, đọc đau trốc quá.",
+      "prediction": "Thêm dấu phẩy vô đi, đọc đau trốc quá.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Chị ngỡ em không muốn tăng ca.",
+      "reference": "Ả ngợ em hung muốn tăng ca.",
+      "prediction": "Chị ngỡ em không muốn tăng ca.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Dân Hà Tĩnh ta sang bên đó làm ăn nhiều.",
+      "reference": "Dân Hà Tĩnh ta sang bên nớ mần ăn nhiều.",
+      "prediction": "Dân Hà Tĩnh ta sang bển làm ăn nhiều.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Thế thì cũng là đồ bỏ đi hết.",
+      "reference": "Thế thì cụng là đồ quẹt khu hết.",
+      "prediction": "Thế thì cũng là đồ bỏ đi hết.",
+      "region": "southern",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Tiêu rồi bà con ạ.",
+      "reference": "Truốt chạc rồi bà con nạ.",
+      "prediction": "tiêu rồi bà con ạ.",
+      "region": "central",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Bạn thân bỏ về nước à?",
+      "reference": "Bạn thân bỏ về nác à?",
+      "prediction": "Bạn thân bỏ dìa nước à?",
+      "region": "southern",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Bạn đăng bài thế này thì phạt thôi.",
+      "reference": "Bạn đăng bài a ri tì phạt thôi.",
+      "prediction": "Bạn đăng bài thế này thì phạt thôi.",
+      "region": "northern",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Đường nhà có chút xíu, 3 trạm.",
+      "reference": "Đường nhà có chút ét, 3 trạm.",
+      "prediction": "Đường nhà có chút xíu, 3 trạm.",
+      "region": "southern",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "bên vuông cậu 8 có ốc Bưu Vàng đấy Út, khi nào út về dẫn út qua bên đấy mà bắt",
+      "reference": "bên vuông cậu 8 có ốc bưu vàng á Út, nào út dìa dẫn út qua bển bắt.",
+      "prediction": "bên vuông cậu 8 có ốc Bưu Vàng đó Út, nào út dìa dẫn út qua bển mà bắt",
+      "region": "southern",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Sóc Trăng tao gọi là cốm ống nhé chúng mày",
+      "reference": "Sóc Trăng tao gọi là cốm ống nghen bây",
+      "prediction": "Sóc Trăng tao gọi cốm ống nghe bây",
+      "region": "southern",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "mai nói bố kéo màn rồi vào nhậu đỡ muỗi.",
+      "reference": "mai kêu ông già kéo mùng rồi dô nhậu đỡ muỗi.",
+      "prediction": "mai nói ba kéo mùng rồi vô nhậu đỡ muỗi.",
+      "region": "southern",
+      "error_type": "missing_marker"
+    },
+    {
+      "source": "Trông đó ngập mau, tội chưa.",
+      "reference": "Trông nớ ngập mau, tội chưa nả.",
+      "prediction": "Trông nớ ngập mau, tội chưa.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Táo toàn quả to giòn ngọt. Để mình một túi nữa với một kí nho tí mình ghé nha bạn!",
+      "reference": "Táo toàn quả to giòn ngọt. Để mình túi nựa với kí nho tí mình ghé nha bạn!",
+      "prediction": "Táo toàn quả to giòn ngọt. Để mình túi nữa với kí nho tí mình ghé nha bạn!",
+      "region": "southern",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Nguyễn Trúc chịu khó, đảm đang thì có chứ hiền lành thì không có đâu nhỉ",
+      "reference": "Nguyễn Trúc chịu khó, đảm đang thì có chứ hiền lành thì không có mô hè.",
+      "prediction": "Nguyễn Trúc chịu khó, đảm đang thì có chơ hiền lành thì không có mô hè?",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "lên chợ phường 5 đi, không thua gì chợ Đông Hà đâu",
+      "reference": "Lên chợ phường 5 đi, không thua chi chợ Đông Hà mô.",
+      "prediction": "lên chợ phường 5 đi, không thua chi chợ Đông Hà mô.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Hồi đấy bằng tuổi nó, tôi cũng không khổ như thế này, tôi thương nó quá",
+      "reference": "Hồi nớ bằng tuổi hắn, tui cũng không khổ như ri, tui thương hắn quá",
+      "prediction": "Hồi nớ bằng tuổi hắn, tui cũng không khổ như ri, tui thương hắn quá",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "May cho tiệm tóc đó nữa chứ không thì cũng toang, khiếp nhỉ, thuốc gì mà dữ vậy",
+      "reference": "May cho tiệm tóc nớ nữa chơ không thì cũng toang, khiếp hè, thuốc chi mà dữ vậy?",
+      "prediction": "May cho tiệm tóc nớ nựa chơ không thì cũng toang, khiếp hè, thuốc chi mà dữ rứa.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "sợ nhỉ, công nhận mình lái xe siêu thiệt.",
+      "reference": "tợn hi, công nhận miềng lái xe siêu thiệt",
+      "prediction": "hại hè, công nhận miềng lái xe siêu thiệt.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Con gái quê tôi giỏi và thông minh.",
+      "reference": "Con gấy quê choa giỏi và thông minh.",
+      "prediction": "Con gấy quê choa giỏi và thông minh.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Về tới xóm Chùa sao tao không nhớ gì hết.",
+      "reference": "Về tới xóm Chùa răng tau không nhớ chi hết.",
+      "prediction": "Về tới xóm Chùa răng tau không nhớ chi hết.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Uống hết chứ chừa phần thừa lại chi nữa.",
+      "reference": "\"Uống hết chơ chừa phần thừa lại chi nựa.\"",
+      "prediction": "Uống hết chơ chừa phần thừa lại chi nựa.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Bữa trước mới đi qua chỗ này thấy sang trọng thế mà.",
+      "reference": "Bựa trước mới đi qua chộ ni thấy oách xà lách rứa mà.",
+      "prediction": "Bựa trước mới đi qua chỗ ni chộ sang trọng rứa mà.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Mình mặc áo dài nữa kìa.",
+      "reference": "Miềng mặc áo dài nữa tê!",
+      "prediction": "Miềng mặc áo dài nựa tề.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Nhớ là mới làm thì phải, hôm bữa đi một lần mà không thấy.",
+      "reference": "Nhớ là mới mần thì phải, bựa đi lần mà nỏ chộ.",
+      "prediction": "Nhớ là mới làm thì phải, bựa đi một lần mà không chộ.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Hắn thấy họ phát trực tiếp thì hắn cũng tập hát vậy chứ hắn cũng đâu biết chuyện gì.",
+      "reference": "hắn chộ họ phát trực tiếp thì hắn cũng táp hớt rứa chơ hắn cũng mô biết chuyện chi.",
+      "prediction": "Hắn thấy họ phát trực tiếp thì hắn cũng tập hát rứa chơ hắn cũng mô biết chuyện chi.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Quảng Trị quê mình nghèo nhưng dân mình tuyệt vời lắm.",
+      "reference": "Quảng Trị quê miềng nghèo nhưng dân miềng tuyệt vời lắm.",
+      "prediction": "Quảng Trị quê miềng nghèo nhưng dân miềng tuyệt vời lắm.",
+      "region": "central",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "chứ tụi em thèm ăn lắm rồi",
+      "reference": "chứ tụi em thèm ăn hung rồi",
+      "prediction": "chớ tụi em mắc ăn lắm rầu",
+      "region": "southern",
+      "error_type": "wrong_region"
+    },
+    {
+      "source": "Lúc nhỏ thích mưa, giờ thấy chán.",
+      "reference": "Nhỏ thích mưa, giờ thấy bưa.",
+      "prediction": "Lúc nhỏ ưng mưa, dừ sèm sèm.",
+      "region": "central",
+      "error_type": "over_dialect"
+    }
+  ]
+}

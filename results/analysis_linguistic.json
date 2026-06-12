@@ -1,0 +1,269 @@
+{
+  "region_confusion": {
+    "northern": {
+      "none": 15,
+      "northern": 91,
+      "central": 79,
+      "southern": 16
+    },
+    "central": {
+      "southern": 39,
+      "northern": 167,
+      "central": 850,
+      "none": 10
+    },
+    "southern": {
+      "central": 96,
+      "northern": 98,
+      "southern": 126,
+      "none": 10
+    }
+  },
+  "top_substitutions": {
+    "northern": [
+      {
+        "std": "nhỉ",
+        "dialect": "nhờ",
+        "count": 28
+      },
+      {
+        "std": "nhỉ",
+        "dialect": "nhể",
+        "count": 18
+      },
+      {
+        "std": "nhỉ",
+        "dialect": "nhở",
+        "count": 12
+      },
+      {
+        "std": "giàu",
+        "dialect": "giầu",
+        "count": 11
+      },
+      {
+        "std": "trời",
+        "dialect": "giời",
+        "count": 10
+      },
+      {
+        "std": "chưa",
+        "dialect": "chửa",
+        "count": 9
+      },
+      {
+        "std": "gãy",
+        "dialect": "gẫy",
+        "count": 7
+      },
+      {
+        "std": "mẹ",
+        "dialect": "u",
+        "count": 5
+      },
+      {
+        "std": "mẹ",
+        "dialect": "bu",
+        "count": 4
+      },
+      {
+        "std": "nhỉ",
+        "dialect": "nhề",
+        "count": 4
+      },
+      {
+        "std": "màu",
+        "dialect": "mầu",
+        "count": 4
+      },
+      {
+        "std": "nhảy",
+        "dialect": "nhẩy",
+        "count": 3
+      },
+      {
+        "std": "bớt",
+        "dialect": "vợi",
+        "count": 3
+      },
+      {
+        "std": "lại",
+        "dialect": "lị",
+        "count": 3
+      },
+      {
+        "std": "bảo",
+        "dialect": "bẩu",
+        "count": 3
+      }
+    ],
+    "central": [
+      {
+        "std": "này",
+        "dialect": "ni",
+        "count": 15
+      },
+      {
+        "std": "vậy",
+        "dialect": "rứa",
+        "count": 10
+      },
+      {
+        "std": "nào",
+        "dialect": "mô",
+        "count": 5
+      },
+      {
+        "std": "gì",
+        "dialect": "chi",
+        "count": 4
+      },
+      {
+        "std": "chứ",
+        "dialect": "chơ",
+        "count": 4
+      },
+      {
+        "std": "đâu",
+        "dialect": "mô",
+        "count": 4
+      },
+      {
+        "std": "giờ",
+        "dialect": "dừ",
+        "count": 3
+      },
+      {
+        "std": "sao",
+        "dialect": "răng",
+        "count": 3
+      },
+      {
+        "std": "nay",
+        "dialect": "ni",
+        "count": 3
+      },
+      {
+        "std": "đó",
+        "dialect": "nớ",
+        "count": 2
+      },
+      {
+        "std": "nữa",
+        "dialect": "nựa",
+        "count": 2
+      },
+      {
+        "std": "tôi",
+        "dialect": "tui",
+        "count": 2
+      },
+      {
+        "std": "nước",
+        "dialect": "nác",
+        "count": 2
+      },
+      {
+        "std": "nhé",
+        "dialect": "nghe",
+        "count": 2
+      },
+      {
+        "std": "thèm",
+        "dialect": "sèm",
+        "count": 2
+      }
+    ],
+    "southern": [
+      {
+        "std": "về",
+        "dialect": "dìa",
+        "count": 5
+      },
+      {
+        "std": "không",
+        "dialect": "hông",
+        "count": 5
+      },
+      {
+        "std": "thật",
+        "dialect": "thiệt",
+        "count": 3
+      },
+      {
+        "std": "xem",
+        "dialect": "coi",
+        "count": 3
+      },
+      {
+        "std": "đắt",
+        "dialect": "mắc",
+        "count": 3
+      },
+      {
+        "std": "này",
+        "dialect": "nè",
+        "count": 1
+      },
+      {
+        "std": "chăn",
+        "dialect": "mền",
+        "count": 1
+      },
+      {
+        "std": "buồn",
+        "dialect": "mắc",
+        "count": 1
+      },
+      {
+        "std": "chạnh",
+        "dialect": "nhạnh",
+        "count": 1
+      },
+      {
+        "std": "bạn",
+        "dialect": "ní",
+        "count": 1
+      },
+      {
+        "std": "ngay",
+        "dialect": "liền",
+        "count": 1
+      },
+      {
+        "std": "chứ",
+        "dialect": "chớ",
+        "count": 1
+      },
+      {
+        "std": "ấy",
+        "dialect": "á",
+        "count": 1
+      },
+      {
+        "std": "hạt",
+        "dialect": "hột",
+        "count": 1
+      },
+      {
+        "std": "quá",
+        "dialect": "huốt",
+        "count": 1
+      }
+    ]
+  },
+  "summary": {
+    "northern": {
+      "n": 201,
+      "copy_rate": 0.08955223880597014
+    },
+    "central": {
+      "n": 1066,
+      "copy_rate": 0.004690431519699813
+    },
+    "southern": {
+      "n": 330,
+      "copy_rate": 0.01818181818181818
+    }
+  }
+}

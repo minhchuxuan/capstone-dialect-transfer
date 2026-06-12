@@ -1,0 +1,200 @@
+% =============================================================================
+%  Slides — Bidirectional Vietnamese Dialect Transfer
+%  Capstone presentation — IT4772E NLP, HUST 2025-2
+%  Compile: pdflatex slides.tex (twice). Vietnamese via babel (pdflatex) or
+%  switch to xelatex+fontspec. Figures expected in ../results/figures/.
+% =============================================================================
+\documentclass[aspectratio=169,11pt]{beamer}
+% Compile with a Unicode engine: xelatex/lualatex or `tectonic slides.tex`.
+% fontspec + Latin Modern OTF renders Vietnamese natively from UTF-8.
+\usepackage{fontspec}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usetheme{Madrid}
+\usecolortheme{whale}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\definecolor{oiblue}{HTML}{0072B2}
+\definecolor{oiorange}{HTML}{E69F00}
+\newcommand{\TODO}[1]{\textcolor{red}{\textbf{[#1]}}}
+\newcommand{\figdir}{../results/figures}
+\newcommand{\hl}[1]{\textcolor{oiblue}{\textbf{#1}}}
+
+\title[VN Dialect Transfer]{Bidirectional Vietnamese Dialect Transfer}
+\subtitle{Region-Conditioned Standard$\rightarrow$Dialect Generation\\with Multi-Task Seq2Seq and Sampling Back-Translation}
+\author{Capstone --- IT4772E Natural Language Processing}
+\institute{Hanoi University of Science and Technology}
+\date{2025--2}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{The problem}
+  \begin{itemize}
+    \item Vietnamese has three dialect regions: \hl{Northern}, \hl{Central}, \hl{Southern}.
+    \item Example (Central): \emph{``Anh đi \hl{mô} rồi?''} $=$ standard \emph{``Anh đi \hl{đâu} rồi?''} (``Where did he go?'').
+    \item \hl{All prior work normalizes} dialect $\rightarrow$ standard (ViDia2Std, NADI for Arabic).
+    \item \hl{Nobody generates the reverse}: standard $\rightarrow$ dialect, conditioned on a region.
+  \end{itemize}
+  \vspace{0.5em}
+  \begin{block}{Our goal}
+    One model, both directions \emph{and} three regions --- normalization \textbf{and} the novel
+    region-conditioned dialect \emph{generation}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Contributions}
+  \begin{enumerate}
+    \item \hl{Novel task}: region-conditioned standard$\rightarrow$dialect generation (Feature C) for all three regions.
+    \item \hl{Unified multi-task model}: one BARTpho-syllable does (A) dialect$\rightarrow$std,
+          (B) lexical normalization, (C) std$\rightarrow$dialect --- selected by a text task prefix.
+    \item \hl{Evaluation suite for one-to-many}: Dialect Feature Recall, marker-independent
+          Dialectal Edit-Recall, region accuracy, copy-rate (BLEU alone is misleading here).
+    \item \hl{Data strategy}: oversampling + sampling back-translation for the data-starved regions.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Why is generation harder than normalization?}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Dialect $\rightarrow$ Standard (A)}
+      \begin{itemize}
+        \item Many-to-one (converging)
+        \item One correct answer
+        \item BLEU is meaningful
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Standard $\rightarrow$ Dialect (C)}
+      \begin{itemize}
+        \item \hl{One-to-many} (diverging)
+        \item Many valid realizations
+        \item \hl{Copying scores high BLEU} but does nothing
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.6em}
+  \begin{block}{Consequence}
+    We need metrics that ask \emph{``was the right kind of change made?''}, not
+    \emph{``does it match one reference?''}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Data}
+  \begin{itemize}
+    \item \hl{ViDia2Std} (Ta et al., AAAI-26): 13,657 dialect/standard pairs, 63 provinces,
+          region-labelled. Used forward (A) \emph{and} reversed (C).
+    \item \hl{ViLexNorm} (EACL 2024): 10,467 teencode$\rightarrow$standard pairs (Feature B).
+    \item \hl{Severe imbalance}: Central $\approx$66\%, Southern $\approx$27\%, Northern $\approx$7\%.
+  \end{itemize}
+  \centering
+  \includegraphics[width=0.62\linewidth]{\figdir/region_imbalance.pdf}
+\end{frame}
+
+\begin{frame}{Method (1): multi-task task-prefix model}
+  \begin{itemize}
+    \item Input string: \texttt{\{task\}: \{source\}} $\rightarrow$ one model, no new heads.
+    \item $P_\theta(y\mid x,c)=\prod_t P_\theta(y_t\mid y_{<t},x,c)$, $c$ = task/region prefix.
+    \item \hl{BARTpho-syllable}: syllable tokenization is robust to dialect/teencode OOV
+          (no fragile word segmenter).
+    \item Prefixes: \texttt{dialect2std}, \texttt{std2dialect\_\{northern,central,southern\}}, \texttt{lexnorm}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Method (2): reverse corpus + sampling back-translation}
+  \begin{itemize}
+    \item \hl{Reverse corpus}: swap (dialect, standard) $\rightarrow$ (standard, dialect) + region prefix.
+          Target side stays human-authored.
+    \item \hl{Sampling back-translation} (Edunov et al. 2018): keep \emph{real dialect} as target,
+          \emph{sample} synthetic standard sources from the strong A-model. Sampling, not beam,
+          to avoid mode collapse.
+    \item \hl{Rebalancing}: oversample Northern/Southern. After augmentation the three regions are
+          roughly balanced.
+  \end{itemize}
+  \centering
+  \includegraphics[width=0.5\linewidth]{\figdir/region_imbalance.pdf}
+\end{frame}
+
+\begin{frame}{Method (3): transfer-aware model selection}
+  \begin{block}{Problem}
+    Pooled validation BLEU rewards a \emph{copying} checkpoint (copying scores high on
+    overlap for std$\rightarrow$dialect).
+  \end{block}
+  \begin{block}{Fix}
+    Select on a \hl{macro per-task BLEU + Dialectal Edit-Recall} composite, so a checkpoint
+    is preferred only if it actually performs the dialectal substitutions.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Evaluation metrics}
+  \begin{itemize}
+    \item \textbf{Overlap}: BLEU, chrF, ROUGE-L, METEOR; \textbf{semantic}: BERTScore;
+          \textbf{normalization}: WER/CER (Feature A), ERR (Feature B).
+    \item \textbf{Dialect Feature Recall (DFR)}: fraction of the reference's regional markers reproduced.
+    \item \textbf{Dialectal Edit-Recall} (marker-independent): does the output make the same
+          token substitutions the gold makes? (Copy $\Rightarrow$ Edit-Recall $=0$.)
+    \item \textbf{Region accuracy} + \textbf{copy-rate}: controllability and under-generation.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Results: normalization (Feature A)}
+  \begin{itemize}
+    \item Our BARTpho-syllable (396M): BLEU \hl{82.10}, WER \hl{0.112}, CER \hl{0.069}.
+    \item ViDia2Std best (mBART-large-50, 611M): BLEU 81.66, WER 0.123, CER 0.075.
+    \item ViDia2Std BARTpho-syllable-\emph{base} (132M): BLEU 75.97.
+    \item[$\Rightarrow$] \hl{Matches and edges the larger SOTA model with fewer parameters.}
+  \end{itemize}
+  \centering
+  \includegraphics[width=0.7\linewidth]{\figdir/main_results.pdf}
+\end{frame}
+
+\begin{frame}{Results: dialect generation (Feature C)}
+  \begin{itemize}
+    \item Improved model overall DFR \hl{$\approx$0.90}, Edit-Recall \hl{0.64--0.71},
+          copy-rate \hl{0.005--0.090} (far below the copy floor of 1.0).
+    \item Big gains on \hl{Northern} (data-starved): copy-rate \hl{0.209 $\rightarrow$ 0.090},
+          Edit-Recall \hl{0.385 $\rightarrow$ 0.635}, BLEU \hl{80.2 $\rightarrow$ 87.7},
+          DFR \hl{0.817 $\rightarrow$ 0.897}.
+  \end{itemize}
+  \centering
+  \includegraphics[width=0.46\linewidth]{\figdir/copy_vs_model_bleu.pdf}\hfill
+  \includegraphics[width=0.46\linewidth]{\figdir/dfr_by_region.pdf}
+\end{frame}
+
+\begin{frame}{Analysis \& error taxonomy}
+  \begin{itemize}
+    \item \hl{Under-transfer / copying} (copy-rate, Edit-Recall) --- worst on Northern.
+    \item \hl{Wrong-region leakage} (region accuracy) --- markers of another region appear.
+    \item \hl{Over-transfer} (Edit-Precision) --- spurious markers.
+    \item \hl{Semantic drift} (BERTScore / human eval).
+    \item One-to-many \hl{diversity}: sampling yields varied valid realizations
+          (Self-BLEU: Central 81.6, Southern 86.7, Northern 93.7; lower $=$ more diverse).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Limitations \& future work}
+  \begin{itemize}
+    \item Single dialectal reference per sentence; 63 provinces collapsed to 3 regions.
+    \item DFR depends on a marker list (mitigated by marker-independent Edit-Recall).
+    \item Northern remains smallest; back-translation sources are synthetic.
+    \item Future: human evaluation at scale, ViT5 comparison, iterative back-translation rounds.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item First \hl{region-conditioned standard$\rightarrow$dialect} generator for Vietnamese.
+    \item One multi-task model: normalization \emph{and} generation \emph{and} lexical normalization.
+    \item Normalization competitive with a much larger SOTA model.
+    \item New transfer-aware metrics expose what BLEU hides; data strategy fixes regional imbalance.
+  \end{itemize}
+  \vspace{0.6em}
+  \centering\Large Thank you! \normalsize\\[0.3em]
+  \small Questions?
+\end{frame}
+
+\end{document}

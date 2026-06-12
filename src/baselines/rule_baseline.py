@@ -49,32 +49,32 @@ STD_TO_CENTRAL = [
 
 # Rules for Standard → Southern dialect
 STD_TO_SOUTH = [
+    # Multi-word pronoun contractions first
     (r"\banh ấy\b", "ảnh"),
     (r"\bchị ấy\b", "chỉ"),
     (r"\bbà ấy\b", "bả"),
     (r"\bông ấy\b", "ổng"),
     (r"\bcô ấy\b", "cổ"),
-    (r"\bthế nào\b", "sao"),
-    (r"\bnhư thế\b", "vậy đó"),
-    (r"\btại sao\b", "sao"),
+    (r"\bở trên\b", "trển"),
+    # Negation (southern hông/hổng)
     (r"\bkhông\b", "hông"),
-    (r"\bvậy\b", "vậy"),
-    (r"\brồi\b", "rồi"),
-    (r"\bbiết\b", "biết"),
-    (r"\bđây\b", "đây nè"),
+    (r"\bchẳng\b", "hổng"),
+    # Kinship terms
+    (r"\bbố\b", "ba"),
+    (r"\bmẹ\b", "má"),
+    # Sentence-final particles
     (r"\bnhé\b", "nghen"),
     (r"\bnhỉ\b", "hen"),
 ]
 
 # Rules for Standard → Northern non-standard
 STD_TO_NORTH = [
-    (r"\banh ấy\b", "anh ý"),
-    (r"\bnó\b", "nó"),
+    # High-precision phonological/lexical northern colloquialisms
     (r"\btrời ơi\b", "giời ơi"),
     (r"\btrời\b", "giời"),
-    (r"\bthế\b", "thế"),
     (r"\bnhỉ\b", "nhở"),
     (r"\bnhé\b", "nhá"),
+    (r"\bvâng\b", "dạ"),
 ]
 
 # Reverse rules for Dialect → Standard (Central)
@@ -102,15 +102,18 @@ SOUTH_TO_STD = [
     (r"\bbả\b", "bà ấy"),
     (r"\bổng\b", "ông ấy"),
     (r"\bcổ\b", "cô ấy"),
+    (r"\btrển\b", "ở trên"),
+    (r"\bhổng\b", "không"),
     (r"\bhông\b", "không"),
     (r"\bnghen\b", "nhé"),
+    (r"\bnhen\b", "nhé"),
     (r"\bhen\b", "nhỉ"),
     (r"\bnè\b", "này"),
 ]
 
 # Reverse rules for Dialect → Standard (Northern non-standard)
 NORTH_TO_STD = [
-    (r"\banh ý\b", "anh ấy"),
+    (r"\bgiời ơi\b", "trời ơi"),
     (r"\bgiời\b", "trời"),
     (r"\bnhở\b", "nhỉ"),
     (r"\bnhá\b", "nhé"),
@@ -123,12 +126,12 @@ NORTH_TO_STD = [
 RULE_TABLES = {
     # Standard → Dialect
     "std2dialect_central": STD_TO_CENTRAL,
-    "std2dialect_south": STD_TO_SOUTH,
-    "std2dialect_north": STD_TO_NORTH,
+    "std2dialect_southern": STD_TO_SOUTH,
+    "std2dialect_northern": STD_TO_NORTH,
     # Dialect → Standard
     "dialect2std_central": CENTRAL_TO_STD,
-    "dialect2std_south": SOUTH_TO_STD,
-    "dialect2std_north": NORTH_TO_STD,
+    "dialect2std_southern": SOUTH_TO_STD,
+    "dialect2std_northern": NORTH_TO_STD,
 }
 
 

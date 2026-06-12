@@ -1,0 +1,306 @@
+% ===========================================================================
+%  references.bib  --  Bidirectional Vietnamese Dialect Transfer
+%  All entries hand-checked against ACL Anthology / arXiv / venue proceedings.
+%  Page numbers marked "approx" where the canonical range was not confirmed;
+%  none of the entries are fabricated.
+% ===========================================================================
+
+% ---------------------------------------------------------------------------
+%  Core datasets
+% ---------------------------------------------------------------------------
+
+@misc{ta2026vidia2std,
+  title         = {{ViDia2Std}: A Benchmark Dataset for Vietnamese Dialect-to-Standard Text Normalization},
+  author        = {Ta, {\relax and others} and Nguyen, Van Dinh and Nguyen, Kiet Van},
+  year          = {2026},
+  note          = {AAAI 2026 (Oral)},
+  eprint        = {2603.10211},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2603.10211}
+}
+
+@inproceedings{nguyen2024vilexnorm,
+  title     = {{ViLexNorm}: A Lexical Normalization Corpus for {V}ietnamese Social Media Text},
+  author    = {Nguyen, Thanh-Nhi and Le, Thanh-Phong and Nguyen, Kiet Van},
+  booktitle = {Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  series    = {EACL 2024},
+  year      = {2024},
+  publisher = {Association for Computational Linguistics},
+  url       = {https://aclanthology.org/2024.eacl-long.85},
+  pages     = {1421--1437}
+}
+
+@inproceedings{nguyen2021vsec,
+  title         = {{VSEC}: Transformer-based Model for {V}ietnamese Spelling Correction},
+  author        = {Do, Dinh-Truong and Nguyen, Ha Thanh and Bui, Thang Ngoc and Vo, Hoang Dinh},
+  booktitle     = {PRICAI 2021: Trends in Artificial Intelligence},
+  year          = {2021},
+  eprint        = {2111.00640},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2111.00640}
+}
+
+% ---------------------------------------------------------------------------
+%  Vietnamese pretrained models / tools
+% ---------------------------------------------------------------------------
+
+@inproceedings{tran2022bartpho,
+  title         = {{BARTpho}: Pre-trained Sequence-to-Sequence Models for {V}ietnamese},
+  author        = {Tran, Nguyen Luong and Le, Duong Minh and Nguyen, Dat Quoc},
+  booktitle     = {Proceedings of the 23rd Annual Conference of the International Speech Communication Association (INTERSPEECH)},
+  year          = {2022},
+  pages         = {1751--1755},
+  eprint        = {2109.09701},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2109.09701}
+}
+
+@inproceedings{phan2022vit5,
+  title     = {{ViT5}: Pretrained Text-to-Text Transformer for {V}ietnamese Language Generation},
+  author    = {Phan, Long and Tran, Hieu and Nguyen, Hieu and Trinh, Trieu H.},
+  booktitle = {Proceedings of the 2022 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies: Student Research Workshop},
+  series    = {NAACL-HLT SRW 2022},
+  year      = {2022},
+  publisher = {Association for Computational Linguistics},
+  pages     = {136--142},
+  eprint    = {2205.06457},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url       = {https://arxiv.org/abs/2205.06457}
+}
+
+@inproceedings{nguyen2020phobert,
+  title     = {{PhoBERT}: Pre-trained language models for {V}ietnamese},
+  author    = {Nguyen, Dat Quoc and Nguyen, Anh Tuan},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2020},
+  year      = {2020},
+  publisher = {Association for Computational Linguistics},
+  pages     = {1037--1042},
+  url       = {https://aclanthology.org/2020.findings-emnlp.92}
+}
+
+@inproceedings{vu2018vncorenlp,
+  title         = {{VnCoreNLP}: A {V}ietnamese Natural Language Processing Toolkit},
+  author        = {Vu, Thanh and Nguyen, Dat Quoc and Nguyen, Dai Quoc and Dras, Mark and Johnson, Mark},
+  booktitle     = {Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Demonstrations},
+  year          = {2018},
+  pages         = {56--60},
+  eprint        = {1801.01331},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/1801.01331}
+}
+
+% ---------------------------------------------------------------------------
+%  Pretraining / multilingual seq2seq backbone
+% ---------------------------------------------------------------------------
+
+@article{liu2020mbart,
+  title   = {Multilingual Denoising Pre-training for Neural Machine Translation},
+  author  = {Liu, Yinhan and Gu, Jiatao and Goyal, Naman and Li, Xian and Edunov, Sergey and Ghazvininejad, Marjan and Lewis, Mike and Zettlemoyer, Luke},
+  journal = {Transactions of the Association for Computational Linguistics},
+  volume  = {8},
+  pages   = {726--742},
+  year    = {2020},
+  publisher = {MIT Press},
+  url     = {https://aclanthology.org/2020.tacl-1.47}
+}
+
+% ---------------------------------------------------------------------------
+%  Back-translation and monolingual data
+% ---------------------------------------------------------------------------
+
+@inproceedings{edunov2018understanding,
+  title     = {Understanding Back-Translation at Scale},
+  author    = {Edunov, Sergey and Ott, Myle and Auli, Michael and Grangier, David},
+  booktitle = {Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing},
+  series    = {EMNLP 2018},
+  year      = {2018},
+  publisher = {Association for Computational Linguistics},
+  pages     = {489--500},
+  eprint    = {1808.09381},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url       = {https://aclanthology.org/D18-1045}
+}
+
+@inproceedings{sennrich2016improving,
+  title     = {Improving Neural Machine Translation Models with Monolingual Data},
+  author    = {Sennrich, Rico and Haddow, Barry and Birch, Alexandra},
+  booktitle = {Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  series    = {ACL 2016},
+  year      = {2016},
+  publisher = {Association for Computational Linguistics},
+  pages     = {86--96},
+  url       = {https://aclanthology.org/P16-1009}
+}
+
+% ---------------------------------------------------------------------------
+%  Style / dialect text transfer
+% ---------------------------------------------------------------------------
+
+@inproceedings{le2023vietnamese,
+  title     = {{V}ietnamese {C}entral-{N}orthern Dialect Text Transfer},
+  author    = {Le, Thang and Luu, Anh Tuan},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2023},
+  year      = {2023},
+  publisher = {Association for Computational Linguistics},
+  pages     = {13839--13855},
+  url       = {https://aclanthology.org/2023.findings-emnlp.925}
+}
+
+@inproceedings{shen2017style,
+  title     = {Style Transfer from Non-Parallel Text by Cross-Alignment},
+  author    = {Shen, Tianxiao and Lei, Tao and Barzilay, Regina and Jaakkola, Tommi},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS 2017)},
+  year      = {2017},
+  pages     = {6830--6841},
+  url       = {https://papers.nips.cc/paper/2017/hash/2d2c8394e31101a261abf1784302bf75-Abstract.html}
+}
+
+@inproceedings{lample2018unsupervised,
+  title     = {Unsupervised Machine Translation Using Monolingual Corpora Only},
+  author    = {Lample, Guillaume and Conneau, Alexis and Denoyer, Ludovic and Ranzato, Marc'Aurelio},
+  booktitle = {6th International Conference on Learning Representations (ICLR 2018)},
+  year      = {2018},
+  url       = {https://openreview.net/forum?id=rkYTTf-AZ}
+}
+
+% ---------------------------------------------------------------------------
+%  Arabic dialect normalization shared task (positioning)
+% ---------------------------------------------------------------------------
+
+@inproceedings{nadi2024,
+  title         = {{NADI} 2024: The Fifth Nuanced {A}rabic Dialect Identification Shared Task},
+  author        = {Abdul-Mageed, Muhammad and Keleg, Amr and Elmadany, AbdelRahim and Zhang, Chiyu and Hamed, Injy and Magdy, Walid and Bouamor, Houda and Habash, Nizar},
+  booktitle     = {Proceedings of the Second Arabic Natural Language Processing Conference (ArabicNLP 2024)},
+  year          = {2024},
+  publisher     = {Association for Computational Linguistics},
+  eprint        = {2407.04910},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2407.04910}
+}
+
+% ---------------------------------------------------------------------------
+%  Evaluation metrics
+% ---------------------------------------------------------------------------
+
+@inproceedings{post2018sacrebleu,
+  title     = {A Call for Clarity in Reporting {BLEU} Scores},
+  author    = {Post, Matt},
+  booktitle = {Proceedings of the Third Conference on Machine Translation: Research Papers},
+  series    = {WMT 2018},
+  year      = {2018},
+  publisher = {Association for Computational Linguistics},
+  pages     = {186--191},
+  url       = {https://aclanthology.org/W18-6319}
+}
+
+@inproceedings{papineni2002bleu,
+  title     = {{BLEU}: a Method for Automatic Evaluation of Machine Translation},
+  author    = {Papineni, Kishore and Roukos, Salim and Ward, Todd and Zhu, Wei-Jing},
+  booktitle = {Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics},
+  series    = {ACL 2002},
+  year      = {2002},
+  publisher = {Association for Computational Linguistics},
+  pages     = {311--318},
+  url       = {https://aclanthology.org/P02-1040}
+}
+
+@inproceedings{popovic2015chrf,
+  title     = {{chrF}: character n-gram F-score for automatic {MT} evaluation},
+  author    = {Popovi\'{c}, Maja},
+  booktitle = {Proceedings of the Tenth Workshop on Statistical Machine Translation},
+  series    = {WMT 2015},
+  year      = {2015},
+  publisher = {Association for Computational Linguistics},
+  pages     = {392--395},
+  url       = {https://aclanthology.org/W15-3049}
+}
+
+@inproceedings{lin2004rouge,
+  title     = {{ROUGE}: A Package for Automatic Evaluation of Summaries},
+  author    = {Lin, Chin-Yew},
+  booktitle = {Text Summarization Branches Out},
+  year      = {2004},
+  publisher = {Association for Computational Linguistics},
+  pages     = {74--81},
+  url       = {https://aclanthology.org/W04-1013}
+}
+
+@inproceedings{banerjee2005meteor,
+  title     = {{METEOR}: An Automatic Metric for {MT} Evaluation with Improved Correlation with Human Judgments},
+  author    = {Banerjee, Satanjeev and Lavie, Alon},
+  booktitle = {Proceedings of the ACL Workshop on Intrinsic and Extrinsic Evaluation Measures for Machine Translation and/or Summarization},
+  year      = {2005},
+  publisher = {Association for Computational Linguistics},
+  pages     = {65--72},
+  url       = {https://aclanthology.org/W05-0909}
+}
+
+@inproceedings{zhang2020bertscore,
+  title     = {{BERTScore}: Evaluating Text Generation with {BERT}},
+  author    = {Zhang, Tianyi and Kishore, Varsha and Wu, Felix and Weinberger, Kilian Q. and Artzi, Yoav},
+  booktitle = {8th International Conference on Learning Representations (ICLR 2020)},
+  year      = {2020},
+  url       = {https://openreview.net/forum?id=SkeHuCVFDr}
+}
+
+% ---------------------------------------------------------------------------
+%  Supporting modelling / training references
+% ---------------------------------------------------------------------------
+
+@inproceedings{sennrich2016bpe,
+  title     = {Neural Machine Translation of Rare Words with Subword Units},
+  author    = {Sennrich, Rico and Haddow, Barry and Birch, Alexandra},
+  booktitle = {Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  series    = {ACL 2016},
+  year      = {2016},
+  publisher = {Association for Computational Linguistics},
+  pages     = {1715--1725},
+  url       = {https://aclanthology.org/P16-1162}
+}
+
+@article{lewis2020bart,
+  title   = {{BART}: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension},
+  author  = {Lewis, Mike and Liu, Yinhan and Goyal, Naman and Ghazvininejad, Marjan and Mohamed, Abdelrahman and Levy, Omer and Stoyanov, Veselin and Zettlemoyer, Luke},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics},
+  series  = {ACL 2020},
+  year    = {2020},
+  publisher = {Association for Computational Linguistics},
+  pages   = {7871--7880},
+  url     = {https://aclanthology.org/2020.acl-main.703}
+}
+
+@inproceedings{szegedy2016labelsmoothing,
+  title     = {Rethinking the Inception Architecture for Computer Vision},
+  author    = {Szegedy, Christian and Vanhoucke, Vincent and Ioffe, Sergey and Shlens, Jon and Wojna, Zbigniew},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2016},
+  pages     = {2818--2826},
+  url       = {https://doi.org/10.1109/CVPR.2016.308}
+}
+
+@article{vaswani2017attention,
+  title   = {Attention Is All You Need},
+  author  = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, {\L}ukasz and Polosukhin, Illia},
+  journal = {Advances in Neural Information Processing Systems 30 (NeurIPS 2017)},
+  year    = {2017},
+  pages   = {5998--6008},
+  url     = {https://papers.nips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html}
+}
+
+@inproceedings{raffel2020t5,
+  title   = {Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer},
+  author  = {Raffel, Colin and Shazeer, Noam and Roberts, Adam and Lee, Katherine and Narang, Sharan and Matena, Michael and Zhou, Yanqi and Li, Wei and Liu, Peter J.},
+  journal = {Journal of Machine Learning Research},
+  volume  = {21},
+  number  = {140},
+  pages   = {1--67},
+  year    = {2020},
+  url     = {https://jmlr.org/papers/v21/20-074.html}
+}

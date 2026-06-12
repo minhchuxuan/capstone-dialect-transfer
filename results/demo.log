@@ -1,0 +1,18 @@
+Loading model from results/checkpoints_v2/best …
+Loading weights:   0%|          | 0/516 [00:00<?, ?it/s]Loading weights: 100%|██████████| 516/516 [00:00<00:00, 5788.99it/s]
+/mnt/tp/minh/nlp_261/capstone-dialect-transfer/demo/app.py:207: UserWarning: The parameters have been moved from the Blocks constructor to the launch() method in Gradio 6.0: theme, css. Please pass these parameters to launch() instead.
+  with gr.Blocks(title="Vietnamese Dialect Transfer",
+Both `max_new_tokens` (=128) and `max_length`(=20) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+`use_return_dict` is deprecated! Use `return_dict` instead!
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Model ready.
+* Running on local URL:  http://0.0.0.0:7861
+* To create a public link, set `share=True` in `launch()`.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 5351.32it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.

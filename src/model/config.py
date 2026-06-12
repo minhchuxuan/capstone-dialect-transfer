@@ -59,32 +59,45 @@ class DataConfig:
     augmented_dir: Path = DATA_DIR / "augmented"
     monolingual_dir: Path = DATA_DIR / "monolingual"
 
-    # Task prefixes — the model sees these as the first tokens of input
+    # Task prefixes — INFORMATIONAL ONLY. format_input uses the raw `task`
+    # field from each record verbatim; these entries just document the
+    # canonical task names that appear in the processed data.
     task_prefixes: Dict[str, str] = field(default_factory=lambda: {
         "dialect2std": "dialect2std",
-        "std2dialect_north": "std2dialect_north",
+        "std2dialect_northern": "std2dialect_northern",
         "std2dialect_central": "std2dialect_central",
-        "std2dialect_south": "std2dialect_south",
-        "lexnorm": "lexnorm",
-        "spell": "spell",
+        "std2dialect_southern": "std2dialect_southern",
     })
 
-    # Multi-task mixing ratios (weights for sampling during training)
+    # Multi-task mixing ratios — INFORMATIONAL ONLY. Actual task mixing is done
+    # by physical oversampling during the data build, NOT by sampling here.
+    # Keys are the real per-task names present in the processed data.
     task_ratios: Dict[str, float] = field(default_factory=lambda: {
         "dialect2std": 0.30,
-        "std2dialect": 0.35,
-        "lexnorm": 0.25,
-        "spell": 0.10,
+        "std2dialect_central": 0.25,
+        "std2dialect_southern": 0.25,
+        "std2dialect_northern": 0.20,
     })
 
-    # Region mapping from ViDia2Std labels
+    # Region mapping from source labels → canonical regions.
+    # Robust to any casing/language of the 3 regions so that normalize_region
+    # is idempotent (northern/central/southern map to themselves).
     region_map: Dict[str, str] = field(default_factory=lambda: {
-        "Bắc": "north",
+        # Canonical english self-maps (idempotency)
+        "northern": "northern",
+        "central": "central",
+        "southern": "southern",
+        # Short english aliases
+        "north": "northern",
+        "south": "southern",
+        # Vietnamese labels
+        "Bắc": "northern",
         "Trung": "central",
-        "Nam": "south",
-        "North": "north",
+        "Nam": "southern",
+        # Capitalized english labels
+        "North": "northern",
         "Central": "central",
-        "South": "south",
+        "South": "southern",
     })
 
     # Back-translation quality filters
@@ -100,11 +113,22 @@ class EvalConfig:
     human_eval_samples_per_region: int = 50
     error_analysis_total: int = 50
 
-    # Dialect markers for DFR metric
+    # Dialect markers for the Dialect Feature Recall (DFR) metric.
+    # Each list is a set of real, high-signal lexical markers for the region.
     dialect_markers: Dict[str, list] = field(default_factory=lambda: {
-        "central": ["mô", "chi", "răng", "rứa", "nờ", "hè", "ni", "tê",
-                     "ảnh", "chỉ", "bả", "ổng", "khôn"],
-        "south": ["hông", "nè", "hen", "á", "nghen", "dzậy", "trển",
-                   "ảnh", "chỉ", "bả", "ổng", "vậy đó", "đó"],
-        "north": ["ý", "giời", "mờ", "nhở", "ấy nhở", "ơi giời"],
+        "central": [
+            "mô", "chi", "răng", "rứa", "nớ", "tê", "ni", "hè", "nờ",
+            "ả", "eng", "mi", "bây", "tui", "dừ", "chừ", "mạ", "nỏ",
+            "cẳng", "chộ", "ốt dột", "khôn", "bọ", "o",
+            "ảnh", "chỉ", "bả", "ổng",
+        ],
+        "southern": [
+            "hông", "hổng", "nè", "nghen", "hen", "dzậy", "vậy", "trển",
+            "tui", "ổng", "bả", "ảnh", "chỉ", "cổ", "kêu", "mắc gì",
+            "hôn", "nhen", "á",
+        ],
+        "northern": [
+            "giời", "nhở", "nhá", "thầy", "u", "bu", "nhõn", "đấy",
+            "cơ", "ý", "a ri", "chi", "tầm",
+        ],
     })

@@ -1,0 +1,299 @@
+{
+  "tokenization": [
+    {
+      "standard": "Anh ấy đi đâu rồi?",
+      "standard_pieces": [
+        "▁Anh",
+        "▁ấy",
+        "▁đi",
+        "▁đâu",
+        "▁rồi",
+        "?"
+      ],
+      "dialect": "Ảnh đi mô rồi?",
+      "dialect_pieces": [
+        "▁Ảnh",
+        "▁đi",
+        "▁mô",
+        "▁rồi",
+        "?"
+      ]
+    },
+    {
+      "standard": "Bà ấy nói gì vậy?",
+      "standard_pieces": [
+        "▁Bà",
+        "▁ấy",
+        "▁nói",
+        "▁gì",
+        "▁vậy",
+        "?"
+      ],
+      "dialect": "Bả nói chi rứa?",
+      "dialect_pieces": [
+        "▁B",
+        "ả",
+        "▁nói",
+        "▁chi",
+        "▁r",
+        "ứ",
+        "a",
+        "?"
+      ]
+    },
+    {
+      "standard": "Không biết",
+      "standard_pieces": [
+        "▁Không",
+        "▁biết"
+      ],
+      "dialect": "Hông biết",
+      "dialect_pieces": [
+        "▁H",
+        "ông",
+        "▁biết"
+      ]
+    }
+  ],
+  "diversity": {
+    "central": {
+      "self_bleu_sampling": 81.61931166721341,
+      "examples": [
+        {
+          "std": "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+          "samples": [
+            "Hôm ni trời đẹp ghê, ta đi nhởi.",
+            "bữa ni trời đẹp quá, ta đi quẩy đi.",
+            "\"Bữa ni trời đẹp quá, ta đi nhởi đi.\"",
+            "bữa ni trời đẹp ghê, ta đi nhởi i.",
+            "bữa ni trời đẹp quá, ta đi nhởi."
+          ]
+        },
+        {
+          "std": "Tại sao bạn không trả lời tin nhắn của tôi?",
+          "samples": [
+            "Mắc mớ gì bạn không trả lời tin nhắn của tôi?",
+            "Răng bạn không trả lời tin nhắn của tui?",
+            "mắc chi bạn không trả lời tin nhắn của tui?",
+            "Mắc mớ răng bạn không trả lời tin nhắn của tui?",
+            "Mắc mớ chi bạn không trả lời tin nhắn của tui?"
+          ]
+        },
+        {
+          "std": "Mẹ tôi nấu ăn rất ngon.",
+          "samples": [
+            "Má tui nấu ăn rất ngon.",
+            "mạ tui nấu ăn rất ngon.",
+            "Mẹ tui nấu ăn rất ngon.",
+            "Mạ tui nấu ăn rất ngon.",
+            "Mạ tui nấu ăn rất ngon."
+          ]
+        },
+        {
+          "std": "Anh ấy nói cái gì vậy, tôi không hiểu.",
+          "samples": [
+            "Anh ấy nói cái chi rứa, tui nỏ hiểu.",
+            "Eng ào nói chi rứa, choa khung hiểu.",
+            "Anh ấy nói cấy chi rứa, tui không hiểu.",
+            "anh ấy nói cái chi rứa, tui không hiểu.",
+            "Eng nớ nói cấy chi rứa, tao nỏ hiểu."
+          ]
+        },
+        {
+          "std": "Cô ấy đi đâu mà giờ vẫn chưa về?",
+          "samples": [
+            "Ả đi mô mà giờ vẫn chưa về?",
+            "O ấy đi mô mà dừ vẫn chưa về?",
+            "O nớ đi mô mà dừ vẫn chưa về?",
+            "O ấy đi mô mà giờ vẫn chưa về?",
+            "Ả đi mô mà dừ vẫn chưa về?"
+          ]
+        }
+      ]
+    },
+    "southern": {
+      "self_bleu_sampling": 86.6516755933477,
+      "examples": [
+        {
+          "std": "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+          "samples": [
+            "Hôm nay trời đẹp quá, chúng ta đi quẩy đi.",
+            "Hôm nay trời đẹp quá, ta đi quẩy đi.",
+            "Hôm nay trời đẹp quá, ta đi quẩy đi.",
+            "Hôm nay trời đẹp quá, ta đi quẩy đi.",
+            "Hôm nay trời đẹp quá, tụi bây đi chơi đi."
+          ]
+        },
+        {
+          "std": "Tại sao bạn không trả lời tin nhắn của tôi?",
+          "samples": [
+            "Mắc gì bạn hông trả lời tin nhắn của tui?",
+            "Mắc gì bạn hông trả lời tin nhắn của tui?",
+            "Mắc gì bạn hông trả lời tin nhắn của tui?",
+            "Mắc gì bạn hông trả lời tin nhắn của tui?",
+            "Mắc gì bạn hông trả lời tin nhắn của tui?"
+          ]
+        },
+        {
+          "std": "Mẹ tôi nấu ăn rất ngon.",
+          "samples": [
+            "Má tui nấu ăn rất ngon.",
+            "u tôi nấu ăn rất ngon.",
+            "u tôi nấu ăn rất ngon.",
+            "u tui nấu ăn rất ngon.",
+            "Nẫu nấu ăn rất ngon."
+          ]
+        },
+        {
+          "std": "Anh ấy nói cái gì vậy, tôi không hiểu.",
+          "samples": [
+            "Anh ấy nói cái gì vậy, tui hổng hiểu.",
+            "Anh ấy nói cái gì dẫy tui hổng hiểu.",
+            "Anh ấy nói cái gì dẫy, tui không hiểu.",
+            "Anh ấy nói cái chi vậy, tui hông hiểu.",
+            "Anh ấy nói cái gì dẫy, tui không hiểu."
+          ]
+        },
+        {
+          "std": "Cô ấy đi đâu mà giờ vẫn chưa về?",
+          "samples": [
+            "Ả đi đâu mà giờ vẫn chưa về?",
+            "Ổng đi đâu mà giờ vẫn chưa về?",
+            "Ả đi đâu mà giờ vẫn chưa dìa?",
+            "Ả đi đâu mà giờ vẫn chưa về?",
+            "Bộ cổ đi đâu mà giờ vẫn chưa về?"
+          ]
+        }
+      ]
+    },
+    "northern": {
+      "self_bleu_sampling": 93.65268858393331,
+      "examples": [
+        {
+          "std": "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+          "samples": [
+            "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+            "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+            "Hôm nay trời đẹp quá, ta đi chơi đi.",
+            "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+            "Hôm nay trời đẹp quá, ta đi chơi đi."
+          ]
+        },
+        {
+          "std": "Tại sao bạn không trả lời tin nhắn của tôi?",
+          "samples": [
+            "Tại sao bạn không giả nhời tin nhắn của tui?",
+            "Mắc gì bạn không giả nhời tin nhắn của tui?",
+            "Tại sao bạn không giả nhời tin nhắn của tôi?",
+            "Mắc gì bạn không trả lời tin nhắn của tui?",
+            "Mắc gì bạn không giả nhời tin nhắn của tui?"
+          ]
+        },
+        {
+          "std": "Mẹ tôi nấu ăn rất ngon.",
+          "samples": [
+            "u tôi nấu ăn rất ngon.",
+            "u tôi nấu ăn rất ngon.",
+            "u tôi nấu ăn rất ngon.",
+            "u tôi nấu ăn rất ngon.",
+            "u tôi nấu ăn rất ngon."
+          ]
+        },
+        {
+          "std": "Anh ấy nói cái gì vậy, tôi không hiểu.",
+          "samples": [
+            "Anh ấy nói cái gì vậy, tôi không hiểu.",
+            "Anh ấy nói cái gì vậy, tôi không hiểu.",
+            "Anh ấy nói cái gì vậy, tôi không hiểu.",
+            "Anh ấy nói cái gì vậy, tôi không hiểu.",
+            "Anh ấy nói cái gì vậy, tui không hiểu."
+          ]
+        },
+        {
+          "std": "Cô ấy đi đâu mà giờ vẫn chưa về?",
+          "samples": [
+            "ẻo đi đâu mà giờ vẫn chưa về?",
+            "ả đi đâu mà giờ vẫn chưa về?",
+            "Ổng đi đâu mà giờ vẫn chưa về?",
+            "Bả đi đâu mà giờ vẫn chưa về?",
+            "Ước đi đâu mà giờ vẫn chưa về?"
+          ]
+        }
+      ]
+    }
+  },
+  "old_vs_new": [
+    {
+      "standard": "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+      "central_old": "bữa ni trời đẹp quá, ta đi chơi đi.",
+      "central_new": "bữa ni trời đẹp quá, ta đi nhởi đi.",
+      "southern_old": "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+      "southern_new": "Hôm nay trời đẹp quá, ta đi quẩy đi.",
+      "northern_old": "Hôm nay trời đẹp quá, chúng ta đi chơi đi.",
+      "northern_new": "Hôm nay trời đẹp quá, chúng ta đi chơi đi."
+    },
+    {
+      "standard": "Tại sao bạn không trả lời tin nhắn của tôi?",
+      "central_old": "\"Tại răng bạn không trả lời tin nhắn của tui?\"",
+      "central_new": "\"Tại răng bạn không trả lời tin nhắn của tui?\"",
+      "southern_old": "Mắc gì bạn hông trả lời tin nhắn của tui?",
+      "southern_new": "Mắc gì bạn hông trả lời tin nhắn của tui?",
+      "northern_old": "Mắc gì bạn không trả lời tin nhắn của tôi?",
+      "northern_new": "Tại sao bạn không giả nhời tin nhắn của tôi?"
+    },
+    {
+      "standard": "Mẹ tôi nấu ăn rất ngon.",
+      "central_old": "Mạ tui nấu ăn rất ngon.",
+      "central_new": "Mạ tui nấu ăn rất ngon.",
+      "southern_old": "Bu tôi nấu ăn rất ngon.",
+      "southern_new": "Má tui nấu ăn rất ngon.",
+      "northern_old": "Bu tôi nấu ăn rất ngon.",
+      "northern_new": "u tôi nấu ăn rất ngon."
+    },
+    {
+      "standard": "Anh ấy nói cái gì vậy, tôi không hiểu.",
+      "central_old": "Anh ấy nói cấy chi rứa, tui nỏ hiểu.",
+      "central_new": "Anh ấy nói cấy chi rứa, tui không hiểu.",
+      "southern_old": "Anh ấy nói cái gì dẫy, tui không hiểu.",
+      "southern_new": "Ổng nói cái gì vậy, tui không hiểu.",
+      "northern_old": "Anh ấy nói cái gì vậy, tôi không hiểu.",
+      "northern_new": "Anh ấy nói cái gì vậy, tôi không hiểu."
+    },
+    {
+      "standard": "Cô ấy đi đâu mà giờ vẫn chưa về?",
+      "central_old": "Ả đi mô mà dừ vẫn chưa về?",
+      "central_new": "Ả đi mô mà dừ vẫn chưa về?",
+      "southern_old": "Ả đi đâu mà giờ vẫn chưa dìa?",
+      "southern_new": "Ả đi đâu mà giờ vẫn chưa dìa?",
+      "northern_old": "Ả đi đâu mà giờ vẫn chưa về?",
+      "northern_new": "Ả đi đâu mà giờ vẫn chưa về?"
+    },
+    {
+      "standard": "Bạn có biết bây giờ là mấy giờ không?",
+      "central_old": "Bạn có biết dừ là mấy giờ không?",
+      "central_new": "Bạn có biết dừ là mấy giờ không?",
+      "southern_old": "Bạn có biết bây giờ là mấy giờ không?",
+      "southern_new": "Bạn có biết bây giờ là mấy giờ hông?",
+      "northern_old": "Bạn có biết bây giờ là mấy giờ không?",
+      "northern_new": "Bạn có biết bây giờ là mấy giờ không?"
+    },
+    {
+      "standard": "Con không thích ăn cơm với cá đâu.",
+      "central_old": "Con không thích ăn cơm với cá mô.",
+      "central_new": "Con nỏ thích ăn cơm với cá mô.",
+      "southern_old": "Con không thích ăn cơm với cá đâu.",
+      "southern_new": "Con hông thích ăn cơm với cá đâu.",
+      "northern_old": "Con không thích ăn cơm với cá đâu.",
+      "northern_new": "Con không thích ăn cơm với cá đâu."
+    },
+    {
+      "standard": "Ông ấy bảo là mai sẽ đến nhà chơi.",
+      "central_old": "Ổng bảo là mai sẽ đến nhà nhởi.",
+      "central_new": "Ổng bảo là mai sẽ đến nhà chơi.",
+      "southern_old": "Ổng bảo là mai sẽ đến nhà chơi.",
+      "southern_new": "Ổng bảo là mai sẽ đến nhà chơi.",
+      "northern_old": "Ổng bảo là mai sẽ đến nhà chơi.",
+      "northern_new": "Ổng bảo là mai sẽ đến nhà chơi."
+    }
+  ]
+}

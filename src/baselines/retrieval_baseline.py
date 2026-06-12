@@ -114,4 +114,4 @@ if __name__ == "__main__":
                 tasks=["dialect2std"])
     # Reverse: standard→dialect
     run_on_file(test, train, out_dir / "retrieval_rev_predictions.jsonl",
-                tasks=["std2dialect_north", "std2dialect_central", "std2dialect_south"])
+                tasks=["std2dialect_northern", "std2dialect_central", "std2dialect_southern"])

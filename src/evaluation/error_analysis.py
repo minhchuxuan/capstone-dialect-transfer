@@ -22,13 +22,26 @@ from src.model.config import EvalConfig
 
 eval_cfg = EvalConfig()
 
+# Map any casing/short alias of a region to the canonical marker-dict key.
+_REGION_ALIASES = {
+    "north": "northern",
+    "south": "southern",
+}
+
+
+def _canonical_region(region: str) -> str:
+    """Lowercase and map short aliases (north/south) to canonical keys
+    (northern/southern) so marker lookups are robust."""
+    r = (region or "").lower()
+    return _REGION_ALIASES.get(r, r)
+
 
 def detect_error_type(record: dict) -> str | None:
     """Heuristic classification of error type. Returns None if no error detected."""
     pred = record["prediction"].lower()
     ref = record["target"].lower()
     src = record["source"].lower()
-    region = record.get("region", "")
+    region = _canonical_region(record.get("region", ""))
     markers = eval_cfg.dialect_markers
 
     # 1. Missing marker: prediction ≈ source (nothing changed)

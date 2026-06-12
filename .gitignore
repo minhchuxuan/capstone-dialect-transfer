@@ -1,6 +1,8 @@
 results/checkpoints/
+results/checkpoints_v2/
 results/metrics/
 data/
+.gradio/
 pycache/
 *.pyc
 .ipynb_checkpoints/

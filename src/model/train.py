@@ -101,49 +101,83 @@ def tokenize_fn(examples, tokenizer, max_source_length, max_target_length):
 # Metrics (computed during training for early stopping)
 # ---------------------------------------------------------------------------
 
-def compute_metrics_factory(tokenizer):
-    """Return a compute_metrics function for Seq2SeqTrainer."""
+def compute_metrics_factory(tokenizer, dev_records):
+    """Return a compute_metrics function for Seq2SeqTrainer.
+
+    Eval order matches `dev_records` order (Seq2SeqTrainer does not shuffle the
+    eval set). We therefore report PER-TASK BLEU and a transfer-aware composite
+    `sel_score` used for best-model selection, instead of a single corpus BLEU.
+
+    Why not plain aggregate BLEU? For the std->dialect direction, copying the
+    standard input already scores high BLEU, so aggregate BLEU rewards an
+    under-generating (copying) checkpoint. `sel_score` blends macro per-task BLEU
+    with the dialectal edit-recall (does the model make the substitutions the gold
+    makes?) so early-stopping favours a checkpoint that actually dialectalises.
+    """
     from sacrebleu.metrics import BLEU
     import numpy as np
+    import re
+    from collections import defaultdict
 
-    bleu_scorer = BLEU()
+    tasks = [r["task"] for r in dev_records]
+    sources = [r["source"] for r in dev_records]
+
+    def toks(s):
+        return set(re.findall(r"\w+", s.lower(), flags=re.UNICODE))
 
     def compute_metrics(eval_preds):
         preds, labels = eval_preds
-
-        # Newer transformers versions can pass predictions as tuples or logits.
         if isinstance(preds, tuple):
             preds = preds[0]
-
         preds = np.asarray(preds)
         labels = np.asarray(labels)
-
-        # If logits are provided, convert to token ids.
         if preds.ndim == 3:
             preds = np.argmax(preds, axis=-1)
 
-        pad_token_id = tokenizer.pad_token_id
-        if pad_token_id is None:
-            pad_token_id = tokenizer.eos_token_id if tokenizer.eos_token_id is not None else 0
+        pad = tokenizer.pad_token_id
+        if pad is None:
+            pad = tokenizer.eos_token_id if tokenizer.eos_token_id is not None else 0
+        preds = np.where(preds == -100, pad, preds)
+        labels = np.where(labels == -100, pad, labels)
 
-        # Replace ignore index before decoding.
-        preds = np.where(preds == -100, pad_token_id, preds)
-        labels = np.where(labels == -100, pad_token_id, labels)
+        dp = [p.strip() for p in tokenizer.batch_decode(preds.tolist(), skip_special_tokens=True)]
+        dl = [l.strip() for l in tokenizer.batch_decode(labels.tolist(), skip_special_tokens=True)]
 
-        decoded_preds = tokenizer.batch_decode(preds.tolist(), skip_special_tokens=True)
-        decoded_labels = tokenizer.batch_decode(labels.tolist(), skip_special_tokens=True)
+        n = min(len(dp), len(tasks))
+        by_task = defaultdict(lambda: ([], [], []))  # task -> (preds, refs, srcs)
+        for i in range(n):
+            p, r, s = by_task[tasks[i]]
+            p.append(dp[i]); r.append(dl[i]); s.append(sources[i])
 
-        # Strip whitespace
-        decoded_preds = [p.strip() for p in decoded_preds]
-        decoded_labels = [l.strip() for l in decoded_labels]
+        out = {}
+        per_task_bleu = []
+        edit_recalls = []
+        copy_hits = copy_tot = 0
+        for task, (tp, tr, ts) in by_task.items():
+            b = BLEU().corpus_score(tp, [tr]).score
+            out[f"bleu_{task}"] = b
+            per_task_bleu.append(b)
+            if task.startswith("std2dialect"):
+                for p, r, s in zip(tp, tr, ts):
+                    sset, tset, pset = toks(s), toks(r), toks(p)
+                    gold = tset - sset
+                    if gold:
+                        edit_recalls.append(len(gold & (pset - sset)) / len(gold))
+                    copy_tot += 1
+                    copy_hits += int(p.strip().lower() == s.strip().lower())
 
-        result = bleu_scorer.corpus_score(decoded_preds, [decoded_labels])
-        return {"bleu": result.score}
+        out["bleu"] = BLEU().corpus_score(dp[:n], [dl[:n]]).score  # corpus (continuity)
+        out["macro_bleu"] = float(np.mean(per_task_bleu)) if per_task_bleu else 0.0
+        out["edit_recall_c"] = float(np.mean(edit_recalls)) if edit_recalls else 0.0
+        out["copy_rate_c"] = copy_hits / max(copy_tot, 1)
+        # Composite: half macro BLEU (0-100), half dialectalisation recall (->0-100).
+        out["sel_score"] = 0.5 * out["macro_bleu"] + 0.5 * (100.0 * out["edit_recall_c"])
+        return out
 
     return compute_metrics
 
 
-def build_trainer(model, training_args, train_ds, dev_ds, tokenizer, data_collator):
+def build_trainer(model, training_args, train_ds, dev_ds, tokenizer, data_collator, dev_records):
     """Build a Seq2SeqTrainer compatible with transformers v4 and v5 APIs."""
     trainer_kwargs = {
         "model": model,
@@ -152,7 +186,7 @@ def build_trainer(model, training_args, train_ds, dev_ds, tokenizer, data_collat
         "eval_dataset": dev_ds,
         "tokenizer": tokenizer,
         "data_collator": data_collator,
-        "compute_metrics": compute_metrics_factory(tokenizer),
+        "compute_metrics": compute_metrics_factory(tokenizer, dev_records),
         "callbacks": [
             EarlyStoppingCallback(
                 early_stopping_patience=cfg_model.early_stopping_patience
@@ -180,10 +214,15 @@ def main():
     parser.add_argument("--model_name", type=str, default=cfg_model.model_name)
     parser.add_argument("--epochs", type=int, default=cfg_model.num_epochs)
     parser.add_argument("--batch_size", type=int, default=cfg_model.batch_size)
+    parser.add_argument("--grad_accum", type=int, default=cfg_model.gradient_accumulation_steps)
     parser.add_argument("--lr", type=float, default=cfg_model.learning_rate)
     parser.add_argument("--output_dir", type=str, default=cfg_model.output_dir)
     parser.add_argument("--include_augmented", action="store_true",
                         help="Include back-translation augmented data")
+    parser.add_argument("--train_file", type=str, default="train.jsonl",
+                        help="Train JSONL filename under processed_dir (e.g. train_balanced.jsonl)")
+    parser.add_argument("--dev_file", type=str, default="dev.jsonl",
+                        help="Dev JSONL filename under processed_dir")
     parser.add_argument("--tasks", nargs="+", default=None,
                         help="Train only on specific tasks (e.g., dialect2std lexnorm)")
     args = parser.parse_args()
@@ -193,8 +232,8 @@ def main():
 
     # Load data
     print("Loading training data...")
-    train_records = load_jsonl(cfg_data.processed_dir / "train.jsonl")
-    dev_records = load_jsonl(cfg_data.processed_dir / "dev.jsonl")
+    train_records = load_jsonl(cfg_data.processed_dir / args.train_file)
+    dev_records = load_jsonl(cfg_data.processed_dir / args.dev_file)
 
     if args.include_augmented:
         aug = load_augmented(cfg_data.augmented_dir)
@@ -251,22 +290,29 @@ def main():
         output_dir=str(output_dir),
         num_train_epochs=args.epochs,
         per_device_train_batch_size=args.batch_size,
-        per_device_eval_batch_size=args.batch_size * 2,
-        gradient_accumulation_steps=cfg_model.gradient_accumulation_steps,
+        per_device_eval_batch_size=16,
+        gradient_accumulation_steps=args.grad_accum,
         learning_rate=args.lr,
         warmup_ratio=cfg_model.warmup_ratio,
         weight_decay=cfg_model.weight_decay,
-        fp16=cfg_model.fp16 and torch.cuda.is_available(),
+        # Prefer bf16 (stable, and safe for T5/ViT5 where fp16 over/underflows);
+        # fall back to fp16 only if bf16 is unsupported.
+        bf16=torch.cuda.is_available() and torch.cuda.is_bf16_supported(),
+        fp16=torch.cuda.is_available() and not torch.cuda.is_bf16_supported() and cfg_model.fp16,
+        label_smoothing_factor=0.1,
+        seed=42,
         eval_strategy="epoch",
         save_strategy="epoch",
         load_best_model_at_end=True,
-        metric_for_best_model="bleu",
+        # Transfer-aware selection (see compute_metrics_factory): NOT plain BLEU,
+        # which would reward a copying checkpoint on the std->dialect direction.
+        metric_for_best_model="sel_score",
         greater_is_better=True,
         predict_with_generate=True,
         generation_max_length=max_tgt,
         generation_num_beams=cfg_model.num_beams,
         logging_steps=50,
-        save_total_limit=3,
+        save_total_limit=2,
         report_to="none",  # set to "wandb" if you have it configured
     )
 
@@ -278,6 +324,7 @@ def main():
         dev_ds=dev_ds,
         tokenizer=tokenizer,
         data_collator=data_collator,
+        dev_records=dev_records,
     )
 
     # Train

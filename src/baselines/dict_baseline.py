@@ -37,10 +37,12 @@ def build_token_map(
                 continue
             if direction == "reverse" and not r["task"].startswith("std2dialect"):
                 continue
+            if direction == "lexnorm" and r["task"] != "lexnorm":
+                continue
 
             src_tokens = r["source"].lower().split()
             tgt_tokens = r["target"].lower().split()
-            key = r.get("region", "global") if direction == "reverse" else "global"
+            key = (r.get("region") or "global") if direction == "reverse" else "global"
 
             # Simple alignment: pair tokens at same position
             for i, (s, t) in enumerate(zip(src_tokens, tgt_tokens)):
@@ -114,7 +116,7 @@ def run_on_file(
             if tasks and record["task"] not in tasks:
                 continue
 
-            region = record.get("region", "global")
+            region = record.get("region") or "global"
             key = region if direction == "reverse" else "global"
             token_map = maps.get(key, {})
 
@@ -144,5 +146,5 @@ if __name__ == "__main__":
                 tasks=["dialect2std"], direction="forward")
     # Reverse direction
     run_on_file(test, train, out_dir / "dict_rev_predictions.jsonl",
-                tasks=["std2dialect_north", "std2dialect_central", "std2dialect_south"],
+                tasks=["std2dialect_northern", "std2dialect_central", "std2dialect_southern"],
                 direction="reverse")
