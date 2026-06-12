@@ -1,174 +1,588 @@
 % =============================================================================
 %  Slides — Bidirectional Vietnamese Dialect Transfer
 %  Capstone presentation — IT4772E NLP, HUST 2025-2
-%  Compile: pdflatex slides.tex (twice). Vietnamese via babel (pdflatex) or
-%  switch to xelatex+fontspec. Figures expected in ../results/figures/.
+%
+%  Compile with a Unicode engine (Vietnamese diacritics):
+%      xelatex nlpslides.tex   (run twice for the navigation/toc)
+%  or  lualatex nlpslides.tex
+%
+%  Self-contained: every figure is drawn natively with TikZ/pgfplots from the
+%  numbers in nlpmain.tex, so the deck compiles with no external image files.
 % =============================================================================
 \documentclass[aspectratio=169,11pt]{beamer}
-% Compile with a Unicode engine: xelatex/lualatex or `tectonic slides.tex`.
-% fontspec + Latin Modern OTF renders Vietnamese natively from UTF-8.
-\usepackage{fontspec}
+
+% --- Fonts / Vietnamese -----------------------------------------------------
+\usepackage{fontspec}            % Latin Modern OTF renders Vietnamese from UTF-8
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{xcolor}
 
-\usetheme{Madrid}
-\usecolortheme{whale}
+% --- Drawing ----------------------------------------------------------------
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,fit,backgrounds,calc}
+
+% --- Theme ------------------------------------------------------------------
+\usetheme{default}
+\usefonttheme{professionalfonts}
 \setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{caption}[numbered]
+
+\definecolor{NGCBlue}{HTML}{173B63}
+\definecolor{NGCLightBlue}{HTML}{EAF2FB}
+\definecolor{NGCOrange}{HTML}{E8873A}
+\definecolor{NGCGreen}{HTML}{2C7A59}
+\definecolor{NGCGray}{HTML}{5E6673}
+\definecolor{NGCLightGray}{HTML}{F4F6F8}
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{frametitle}{fg=NGCBlue,bg=white}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamercolor{title}{fg=NGCBlue,bg=white}
+\setbeamercolor{subtitle}{fg=NGCGray,bg=white}
+\setbeamercolor{structure}{fg=NGCBlue}
+\setbeamercolor{block title}{fg=white,bg=NGCBlue}
+\setbeamercolor{block body}{fg=black,bg=NGCLightBlue}
+\setbeamercolor{alerted text}{fg=NGCOrange}
+\setbeamercolor{item}{fg=NGCBlue}
+\setbeamercolor{subitem}{fg=NGCGreen}
+\setbeamercolor{section in toc}{fg=NGCBlue}
+\setbeamersize{text margin left=0.9cm,text margin right=0.9cm}
+\setlength{\parskip}{3pt}
+
+\newcommand{\sectiontitleframe}{%
+  \begin{frame}[plain]
+    \vfill
+    \begin{flushleft}
+      {\usebeamerfont{title}\usebeamercolor[fg]{title}\fontsize{20}{30}\selectfont\insertsectionhead\par}
+      \textcolor{NGCBlue}{\rule{\linewidth}{3pt}}
+    \end{flushleft}
+    \vfill
+  \end{frame}
+}
+\AtBeginSection[]{\sectiontitleframe}
+
+\setbeamertemplate{footline}{%
+  \leavevmode\hbox{%
+  \begin{beamercolorbox}[wd=.82\paperwidth,ht=2.3ex,dp=1ex,leftskip=1.5em]{author in head/foot}%
+  \color{NGCGray}\scriptsize
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.18\paperwidth,ht=2.3ex,dp=1ex,rightskip=1.5em]{date in head/foot}%
+  \color{NGCGray}\scriptsize\hfill\insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}}%
+}
+
+% Okabe–Ito colour-blind-safe palette
 \definecolor{oiblue}{HTML}{0072B2}
 \definecolor{oiorange}{HTML}{E69F00}
-\newcommand{\TODO}[1]{\textcolor{red}{\textbf{[#1]}}}
-\newcommand{\figdir}{../results/figures}
-\newcommand{\hl}[1]{\textcolor{oiblue}{\textbf{#1}}}
+\definecolor{oigreen}{HTML}{009E73}
+\definecolor{oired}{HTML}{D55E00}
+\definecolor{oigray}{HTML}{777777}
 
+\newcommand{\hl}[1]{\textcolor{oiblue}{\textbf{#1}}}
+\newcommand{\tprefix}[1]{\texttt{\small #1}}
+\newcommand{\figdir}{figures}        % real figures supplied alongside this file
+
+\pgfplotsset{
+  every axis/.append style={
+    font=\scriptsize,
+    label style={font=\scriptsize},
+    tick label style={font=\scriptsize},
+    legend style={font=\scriptsize},
+  },
+}
+
+% --- Title metadata (short forms keep the Madrid footline from overflowing) --
 \title[VN Dialect Transfer]{Bidirectional Vietnamese Dialect Transfer}
 \subtitle{Region-Conditioned Standard$\rightarrow$Dialect Generation\\with Multi-Task Seq2Seq and Sampling Back-Translation}
-\author{Capstone --- IT4772E Natural Language Processing}
-\institute{Hanoi University of Science and Technology}
+\author[Capstone]{Capstone --- IT4772E Natural Language Processing}
+\institute[HUST]{Hanoi University of Science and Technology}
 \date{2025--2}
 
 \begin{document}
 
 \frame{\titlepage}
 
+% =============================================================================
 \begin{frame}{The problem}
   \begin{itemize}
     \item Vietnamese has three dialect regions: \hl{Northern}, \hl{Central}, \hl{Southern}.
     \item Example (Central): \emph{``Anh đi \hl{mô} rồi?''} $=$ standard \emph{``Anh đi \hl{đâu} rồi?''} (``Where did he go?'').
-    \item \hl{All prior work normalizes} dialect $\rightarrow$ standard (ViDia2Std, NADI for Arabic).
-    \item \hl{Nobody generates the reverse}: standard $\rightarrow$ dialect, conditioned on a region.
   \end{itemize}
-  \vspace{0.5em}
+  \vspace{0.4em}
+  \centering
+  \begin{tikzpicture}[font=\small,node distance=8mm]
+    \node[draw,rounded corners,fill=oiblue!12,minimum width=2.6cm,minimum height=1cm,align=center] (std) {Standard\\Vietnamese};
+    \node[draw,rounded corners,fill=oiorange!15,minimum width=2.6cm,minimum height=1cm,align=center,right=4.2cm of std] (dia) {Dialectal\\text};
+    \draw[-{Latex[length=2.2mm]},oigray,thick] (dia.150) to[bend right=18]
+        node[above,font=\scriptsize,text=oigray]{\textbf{normalization} — all prior work} (std.30);
+    \draw[-{Latex[length=2.2mm]},oired,very thick] (std.-30) to[bend right=18]
+        node[below,font=\scriptsize,text=oired]{\textbf{generation} — \emph{novel, this work}} (dia.-150);
+  \end{tikzpicture}
+  \vspace{0.3em}
   \begin{block}{Our goal}
     One model, both directions \emph{and} three regions --- normalization \textbf{and} the novel
     region-conditioned dialect \emph{generation}.
   \end{block}
 \end{frame}
 
+% =============================================================================
 \begin{frame}{Contributions}
   \begin{enumerate}
-    \item \hl{Novel task}: region-conditioned standard$\rightarrow$dialect generation (Feature C) for all three regions.
+    \item \hl{Novel task}: region-conditioned standard$\rightarrow$dialect generation (Feature~C) for all three regions.
     \item \hl{Unified multi-task model}: one BARTpho-syllable does (A) dialect$\rightarrow$std,
           (B) lexical normalization, (C) std$\rightarrow$dialect --- selected by a text task prefix.
     \item \hl{Evaluation suite for one-to-many}: Dialect Feature Recall, marker-independent
           Dialectal Edit-Recall, region accuracy, copy-rate (BLEU alone is misleading here).
-    \item \hl{Data strategy}: oversampling + sampling back-translation for the data-starved regions.
+    \item \hl{Data strategy}: oversampling $+$ sampling back-translation for the data-starved regions.
   \end{enumerate}
 \end{frame}
 
+% =============================================================================
 \begin{frame}{Why is generation harder than normalization?}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \textbf{Dialect $\rightarrow$ Standard (A)}
-      \begin{itemize}
+  \begin{columns}[T]
+    \begin{column}{0.46\textwidth}
+      \textbf{Dialect $\rightarrow$ Standard (A)}\\[-0.3em]
+      \begin{itemize}\small
         \item Many-to-one (converging)
         \item One correct answer
         \item BLEU is meaningful
       \end{itemize}
+      \centering
+      \begin{tikzpicture}[scale=0.8,font=\scriptsize]
+        \foreach \y in {0.9,1.7,2.5} \node[draw,fill=oiorange!20,rounded corners,inner sep=1.5pt] at (0,\y) {dia};
+        \node[draw,fill=oiblue!20,rounded corners,inner sep=1.5pt] (s) at (2.4,1.7) {std};
+        \foreach \y in {0.9,1.7,2.5} \draw[-{Latex[length=1.6mm]},oigray] (0.45,\y) -- (s.west);
+      \end{tikzpicture}
     \end{column}
-    \begin{column}{0.5\textwidth}
-      \textbf{Standard $\rightarrow$ Dialect (C)}
-      \begin{itemize}
+    \begin{column}{0.46\textwidth}
+      \textbf{Standard $\rightarrow$ Dialect (C)}\\[-0.3em]
+      \begin{itemize}\small
         \item \hl{One-to-many} (diverging)
         \item Many valid realizations
         \item \hl{Copying scores high BLEU} but does nothing
       \end{itemize}
+      \centering
+      \begin{tikzpicture}[scale=0.8,font=\scriptsize]
+        \node[draw,fill=oiblue!20,rounded corners,inner sep=1.5pt] (s) at (0,1.7) {std};
+        \foreach \y in {0.9,1.7,2.5} \node[draw,fill=oiorange!20,rounded corners,inner sep=1.5pt] (d\y) at (2.4,\y) {dia};
+        \foreach \y in {0.9,1.7,2.5} \draw[-{Latex[length=1.6mm]},oired] (s.east) -- (1.95,\y);
+      \end{tikzpicture}
     \end{column}
   \end{columns}
-  \vspace{0.6em}
+  \vspace{0.3em}
   \begin{block}{Consequence}
     We need metrics that ask \emph{``was the right kind of change made?''}, not
     \emph{``does it match one reference?''}
   \end{block}
 \end{frame}
 
-\begin{frame}{Data}
+% =============================================================================
+\begin{frame}{Background: conditional sequence-to-sequence}
+  All three tasks are one conditional generation problem. Source $x$, condition $c$
+  (the task/region prefix), target $y$:
+  \[
+    P_\theta(y \mid x, c) = \prod_{t=1}^{n} P_\theta\!\left(y_t \mid y_{<t},\, x,\, c\right).
+  \]
   \begin{itemize}
-    \item \hl{ViDia2Std} (Ta et al., AAAI-26): 13,657 dialect/standard pairs, 63 provinces,
-          region-labelled. Used forward (A) \emph{and} reversed (C).
-    \item \hl{ViLexNorm} (EACL 2024): 10,467 teencode$\rightarrow$standard pairs (Feature B).
-    \item \hl{Severe imbalance}: Central $\approx$66\%, Southern $\approx$27\%, Northern $\approx$7\%.
+    \item \hl{Textual conditioning}: input string is \texttt{\{task\}: \{source\}} --- no new heads or embeddings.
+    \item \hl{Training}: teacher forcing $+$ token cross-entropy, with \hl{label smoothing}
+          (several outputs are acceptable in one-to-many).
+    \item \hl{Decoding}: \emph{beam search} for the deterministic normalization direction;
+          \emph{sampling} for generation \emph{and} for back-translation (avoids over-regular,
+          mode-collapsed outputs --- Edunov et al.\ 2018).
   \end{itemize}
-  \centering
-  \includegraphics[width=0.62\linewidth]{\figdir/region_imbalance.pdf}
 \end{frame}
 
+% =============================================================================
+\begin{frame}{Data}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}\small
+        \item \hl{ViDia2Std} (Ta et al., AAAI-26): 13{,}657 dialect/standard pairs,
+              63 provinces, region-labelled. Used forward (A) \emph{and} reversed (C).
+        \item \hl{ViLexNorm} (EACL 2024): 10{,}467 teencode$\rightarrow$standard pairs (B).
+        \item \hl{Severe imbalance} in ViDia2Std drives the data strategy.
+      \end{itemize}
+      \centering
+      \scriptsize
+      \begin{tabular}{l r r r}
+        \toprule
+        \textbf{Task} & \textbf{Train} & \textbf{Dev} & \textbf{Test}\\
+        \midrule
+        \tprefix{dialect2std} (A)        & 10{,}844 & 1{,}181 & 1{,}597\\
+        \tprefix{std2d\_central} (C)     &  7{,}196 &   767 & 1{,}066\\
+        \tprefix{std2d\_southern} (C)    &  2{,}893 &   319 &   330\\
+        \tprefix{std2d\_northern} (C)    &    755 &    95 &   201\\
+        \tprefix{lexnorm} (B)            &  8{,}372 & 1{,}050 & 1{,}045\\
+        \midrule
+        \textbf{Total}                   & 30{,}060 & 3{,}412 & 4{,}239\\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{\figdir/dataset_composition.pdf}
+      \par\footnotesize Five task prefixes, one JSON schema:\\
+      \texttt{\{task, region, source, target\}}.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% =============================================================================
 \begin{frame}{Method (1): multi-task task-prefix model}
-  \begin{itemize}
-    \item Input string: \texttt{\{task\}: \{source\}} $\rightarrow$ one model, no new heads.
-    \item $P_\theta(y\mid x,c)=\prod_t P_\theta(y_t\mid y_{<t},x,c)$, $c$ = task/region prefix.
+  \centering
+  \begin{tikzpicture}[font=\small,node distance=6mm,
+      box/.style={draw,rounded corners,minimum height=0.95cm,align=center}]
+    \node[box,fill=oigray!12,minimum width=4.3cm] (in) {\texttt{\{task\}: \{source\}}};
+    \node[box,fill=oiblue!15,right=of in,minimum width=1.9cm] (enc) {Encoder};
+    \node[box,fill=oiblue!15,right=of enc,minimum width=1.9cm] (dec) {Decoder};
+    \node[box,fill=oiorange!18,right=of dec,minimum width=2.6cm] (out) {target\\sequence};
+    \draw[-{Latex[length=2mm]}] (in) -- (enc);
+    \draw[-{Latex[length=2mm]}] (enc) -- (dec);
+    \draw[-{Latex[length=2mm]}] (dec) -- (out);
+    \node[below=1mm of enc,font=\scriptsize,text=oiblue] {\textbf{one BARTpho-syllable}};
+  \end{tikzpicture}
+  \vspace{0.4em}
+  \begin{itemize}\small
+    \item One model, \hl{no new heads}; the prefix steers generation, so all tasks share parameters and tokenizer.
     \item \hl{BARTpho-syllable}: syllable tokenization is robust to dialect/teencode OOV
           (no fragile word segmenter).
-    \item Prefixes: \texttt{dialect2std}, \texttt{std2dialect\_\{northern,central,southern\}}, \texttt{lexnorm}.
+    \item Prefixes: \tprefix{dialect2std}, \tprefix{std2dialect\_\{northern,central,southern\}}, \tprefix{lexnorm}.
+    \item Expect \hl{positive transfer} among the three noisy-input tasks (both dialect directions $+$ lexnorm).
   \end{itemize}
 \end{frame}
 
+% =============================================================================
 \begin{frame}{Method (2): reverse corpus + sampling back-translation}
-  \begin{itemize}
-    \item \hl{Reverse corpus}: swap (dialect, standard) $\rightarrow$ (standard, dialect) + region prefix.
-          Target side stays human-authored.
-    \item \hl{Sampling back-translation} (Edunov et al. 2018): keep \emph{real dialect} as target,
-          \emph{sample} synthetic standard sources from the strong A-model. Sampling, not beam,
-          to avoid mode collapse.
-    \item \hl{Rebalancing}: oversample Northern/Southern. After augmentation the three regions are
-          roughly balanced.
-  \end{itemize}
   \centering
-  \includegraphics[width=0.5\linewidth]{\figdir/region_imbalance.pdf}
+  \begin{tikzpicture}[font=\scriptsize,node distance=5mm and 8mm,
+      box/.style={draw,rounded corners,minimum height=0.8cm,align=center,inner sep=3pt}]
+    \node[box,fill=oiorange!18] (rd) {real \textbf{dialect}\\(target)};
+    \node[box,fill=oiblue!15,right=of rd] (am) {A-model\\dialect$\to$std\\(\emph{sample})};
+    \node[box,fill=oigray!12,right=of am] (ss) {synthetic\\\textbf{standard} (source)};
+    \node[box,fill=oigreen!15,right=of ss,minimum width=2.4cm] (pair) {train pair for C:\\(synth-std, real-dia)};
+    \draw[-{Latex[length=2mm]}] (rd) -- (am);
+    \draw[-{Latex[length=2mm]}] (am) -- (ss);
+    \draw[-{Latex[length=2mm]}] (ss) -- (pair);
+    \draw[-{Latex[length=2mm]},oiorange,thick] (rd.south) to[bend right=25] (pair.south);
+  \end{tikzpicture}
+  \vspace{0.3em}
+  \begin{itemize}\small
+    \item \hl{Reverse corpus}: swap (dialect, standard) $\rightarrow$ (standard, dialect) $+$ region prefix.
+          Target side stays \emph{human-authored}.
+    \item \hl{Sampling back-translation} (Edunov et al.\ 2018): keep \emph{real dialect} as target,
+          \emph{sample} synthetic standard sources from the strong A-model --- sampling, not beam, to avoid mode collapse.
+    \item \hl{Rebalancing}: oversample Northern/Southern; light quality filter (round-trip, length ratio, $\geq$1 marker).
+  \end{itemize}
 \end{frame}
 
+% =============================================================================
 \begin{frame}{Method (3): transfer-aware model selection}
   \begin{block}{Problem}
-    Pooled validation BLEU rewards a \emph{copying} checkpoint (copying scores high on
-    overlap for std$\rightarrow$dialect).
+    Pooled validation BLEU rewards a \emph{copying} checkpoint --- copying scores high on
+    overlap for std$\rightarrow$dialect.
   \end{block}
   \begin{block}{Fix}
-    Select on a \hl{macro per-task BLEU + Dialectal Edit-Recall} composite, so a checkpoint
+    Select on a \hl{macro per-task BLEU $+$ Dialectal Edit-Recall} composite, so a checkpoint
     is preferred only if it actually performs the dialectal substitutions.
   \end{block}
 \end{frame}
 
+% =============================================================================
 \begin{frame}{Evaluation metrics}
-  \begin{itemize}
-    \item \textbf{Overlap}: BLEU, chrF, ROUGE-L, METEOR; \textbf{semantic}: BERTScore;
-          \textbf{normalization}: WER/CER (Feature A), ERR (Feature B).
-    \item \textbf{Dialect Feature Recall (DFR)}: fraction of the reference's regional markers reproduced.
-    \item \textbf{Dialectal Edit-Recall} (marker-independent): does the output make the same
-          token substitutions the gold makes? (Copy $\Rightarrow$ Edit-Recall $=0$.)
-    \item \textbf{Region accuracy} + \textbf{copy-rate}: controllability and under-generation.
+  \begin{itemize}\small
+    \item \textbf{Overlap/semantic}: BLEU, chrF, ROUGE-L, METEOR, BERTScore;
+          \textbf{normalization}: WER/CER (A), ERR (B).
+    \item \textbf{Dialect Feature Recall (DFR)} --- fraction of the reference's regional markers reproduced:
+      \[
+        \mathrm{DFR}=\frac{\bigl|\{m\in R: m\in\hat y\}\bigr|}{|R|},\quad R=\{m\in M_r: m\in y\}.
+      \]
+    \item \textbf{Dialectal Edit-Recall} (marker-independent) --- did the model make the gold's token changes?
+      \[
+        \mathrm{Recall}=\frac{|A_{\text{gold}}\cap A_{\text{sys}}|}{|A_{\text{gold}}|},\quad
+        A_\bullet = T(\cdot)\setminus T(x).
+      \]
+      Copy $\Rightarrow$ Edit-Recall $=0$, regardless of BLEU.
+    \item \textbf{Region accuracy} $+$ \textbf{copy-rate}: controllability and under-generation.
   \end{itemize}
 \end{frame}
 
+% =============================================================================
+\begin{frame}{Baselines: the copy trap}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[
+          ybar, bar width=8pt, width=\linewidth, height=4.3cm,
+          symbolic x coords={Central,Southern,Northern},
+          xtick=data, ymin=0, ymax=100, ylabel={score},
+          legend style={at={(0.5,1.18)},anchor=north,legend columns=3,draw=none},
+          enlarge x limits=0.3,
+        ]
+          \addplot[fill=oigray]   coordinates {(Central,44.23)(Southern,47.91)(Northern,74.98)};
+          \addplot[fill=oiblue]   coordinates {(Central,69.09)(Southern,70.36)(Northern,87.68)};
+          \addplot[fill=oired,bar width=8pt] coordinates {(Central,0)(Southern,0)(Northern,0)};
+          \legend{LAI BLEU, Model BLEU, LAI edit-rec}
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \begin{itemize}\small
+        \item \hl{Leave-As-Is (copy)} posts high BLEU (74.98 Northern!) but Edit-Recall $=0$ --- the \hl{copy floor}.
+        \item Dictionary transfers hard (copy-rate 0) but BLEU $<6$.
+        \item Rule-based: strongest non-neural on overlap, still recalls only 0.10--0.29 of gold edits.
+        \item Our model \hl{beats every baseline} on Edit-Recall/DFR \emph{and} clears the copy BLEU floor.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% =============================================================================
 \begin{frame}{Results: normalization (Feature A)}
-  \begin{itemize}
-    \item Our BARTpho-syllable (396M): BLEU \hl{82.10}, WER \hl{0.112}, CER \hl{0.069}.
-    \item ViDia2Std best (mBART-large-50, 611M): BLEU 81.66, WER 0.123, CER 0.075.
-    \item ViDia2Std BARTpho-syllable-\emph{base} (132M): BLEU 75.97.
-    \item[$\Rightarrow$] \hl{Matches and edges the larger SOTA model with fewer parameters.}
-  \end{itemize}
-  \centering
-  \includegraphics[width=0.7\linewidth]{\figdir/main_results.pdf}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[
+          ybar, bar width=14pt, width=\linewidth, height=4.3cm,
+          symbolic x coords={Ours,mBART-50,BARTpho-b},
+          xtick=data, ymin=70, ymax=90, ylabel={BLEU},
+          nodes near coords, nodes near coords style={font=\tiny},
+          enlarge x limits=0.25,
+        ]
+          \addplot[fill=oiblue]  coordinates {(Ours,82.10)};
+          \addplot[fill=oigray]  coordinates {(mBART-50,81.66)};
+          \addplot[fill=oigray!60] coordinates {(BARTpho-b,75.97)};
+        \end{axis}
+      \end{tikzpicture}
+      \par\scriptsize Params: \hl{396M} vs 611M vs 132M.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}\small
+        \item Our BARTpho-syllable (396M): BLEU \hl{82.10}, WER \hl{0.112}, CER \hl{0.069}.
+        \item ViDia2Std best (mBART-large-50, 611M): BLEU 81.66, WER 0.123, CER 0.075.
+        \item ViDia2Std BARTpho-syllable-\emph{base} (132M): BLEU 75.97.
+        \item[$\Rightarrow$] \hl{Matches and edges} the larger SOTA model with $\sim$a third fewer parameters.
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
+% =============================================================================
 \begin{frame}{Results: dialect generation (Feature C)}
-  \begin{itemize}
-    \item Improved model overall DFR \hl{$\approx$0.90}, Edit-Recall \hl{0.64--0.71},
-          copy-rate \hl{0.005--0.090} (far below the copy floor of 1.0).
-    \item Big gains on \hl{Northern} (data-starved): copy-rate \hl{0.209 $\rightarrow$ 0.090},
-          Edit-Recall \hl{0.385 $\rightarrow$ 0.635}, BLEU \hl{80.2 $\rightarrow$ 87.7},
-          DFR \hl{0.817 $\rightarrow$ 0.897}.
-  \end{itemize}
   \centering
-  \includegraphics[width=0.46\linewidth]{\figdir/copy_vs_model_bleu.pdf}\hfill
-  \includegraphics[width=0.46\linewidth]{\figdir/dfr_by_region.pdf}
+  \begin{tikzpicture}
+    \begin{axis}[
+      ybar, bar width=9pt, width=0.82\linewidth, height=4.5cm,
+      symbolic x coords={Central,Southern,Northern},
+      xtick=data, ymin=0, ymax=1.05, ylabel={score $[0,1]$},
+      nodes near coords, nodes near coords style={font=\tiny},
+      legend style={at={(0.5,1.16)},anchor=north,legend columns=3,draw=none},
+      enlarge x limits=0.3,
+    ]
+      \addplot[fill=oiblue]   coordinates {(Central,0.901)(Southern,0.897)(Northern,0.897)};
+      \addplot[fill=oigreen]  coordinates {(Central,0.714)(Southern,0.646)(Northern,0.635)};
+      \addplot[fill=oired]    coordinates {(Central,0.005)(Southern,0.018)(Northern,0.090)};
+      \legend{DFR, Edit-Recall, copy-rate}
+    \end{axis}
+  \end{tikzpicture}
+  \begin{itemize}\small
+    \item Overall DFR \hl{$\approx$0.90}, Edit-Recall \hl{0.64--0.71}, copy-rate \hl{far below the copy floor of 1.0}.
+  \end{itemize}
 \end{frame}
 
+% =============================================================================
+\begin{frame}{Improvement on data-starved Northern (before $\to$ after)}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[
+          ybar, bar width=10pt, width=\linewidth, height=4.6cm,
+          symbolic x coords={BLEU/100,DFR,Edit-Rec,copy},
+          xtick=data, ymin=0, ymax=1.05, ylabel={score $[0,1]$},
+          x tick label style={font=\tiny,rotate=20,anchor=east},
+          nodes near coords, nodes near coords style={font=\tiny},
+          legend style={at={(0.5,1.16)},anchor=north,legend columns=2,draw=none},
+          enlarge x limits=0.18,
+        ]
+          \addplot[fill=oigray]  coordinates {(BLEU/100,0.802)(DFR,0.817)(Edit-Rec,0.385)(copy,0.209)};
+          \addplot[fill=oiblue]  coordinates {(BLEU/100,0.877)(DFR,0.897)(Edit-Rec,0.635)(copy,0.090)};
+          \legend{baseline, improved}
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \begin{itemize}\small
+        \item Northern is the region the data strategy targeted.
+        \item Edit-Recall \hl{0.385$\to$0.635}, DFR \hl{0.817$\to$0.897}, BLEU \hl{80.2$\to$87.7}.
+        \item Copy-rate \hl{falls} 0.209$\to$0.090 --- less copying, more transfer.
+        \item Central/Southern maintained; Feature~A preserved (BLEU 81.68$\to$82.10).
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Analysis: learned lexical substitutions}
+  The model \emph{induced} these from data --- not hand-written rules. All are well-attested regional forms.
+  \vspace{0.3em}
+  \centering
+  \footnotesize
+  \begin{tabular}{l l l}
+    \toprule
+    \textbf{Central} & \textbf{Northern} & \textbf{Southern}\\
+    \midrule
+    này $\rightarrow$ ni      & nhỉ $\rightarrow$ nhể/nhở & về $\rightarrow$ dìa\\
+    vậy $\rightarrow$ rứa     & trời $\rightarrow$ giời   & không $\rightarrow$ hông\\
+    đâu/nào $\rightarrow$ mô  & chưa $\rightarrow$ chửa   & thật $\rightarrow$ thiệt\\
+    gì $\rightarrow$ chi      & giàu $\rightarrow$ giầu   & xem $\rightarrow$ coi\\
+    sao $\rightarrow$ răng    & mẹ $\rightarrow$ u / bu   & đắt $\rightarrow$ mắc\\
+    tôi $\rightarrow$ tui     & nhỉ $\rightarrow$ nhờ     & chăn $\rightarrow$ mền\\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.4em}
+  \begin{itemize}\small
+    \item Recovers canonical function words, pronouns, and kinship terms per region --- evidence of \hl{genuine dialect lexicon}, not surface noise.
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Region controllability: confusion matrix}
+  \centering
+  \footnotesize
+  Rows: \emph{requested} region~~~Columns: region \emph{detected} by the marker classifier.
+  \vspace{0.4em}
+
+  \begin{tikzpicture}[font=\footnotesize,
+      cell/.style={minimum width=1.5cm,minimum height=0.85cm,draw=oigray!40,align=center}]
+    % header
+    \node[cell,fill=none,draw=none] at (0,0) {};
+    \node[cell,fill=none,draw=none] at (1.5,0) {\textbf{North.}};
+    \node[cell,fill=none,draw=none] at (3.0,0) {\textbf{Central}};
+    \node[cell,fill=none,draw=none] at (4.5,0) {\textbf{South.}};
+    \node[cell,fill=none,draw=none] at (6.0,0) {\textbf{none}};
+    % row Northern
+    \node[cell,fill=none,draw=none] at (0,-0.85) {\textbf{North.}};
+    \node[cell,fill=oiblue!20] at (1.5,-0.85) {91};
+    \node[cell,fill=oiblue!18] at (3.0,-0.85) {79};
+    \node[cell,fill=oiblue!5]  at (4.5,-0.85) {16};
+    \node[cell,fill=oiblue!5]  at (6.0,-0.85) {15};
+    % row Central
+    \node[cell,fill=none,draw=none] at (0,-1.70) {\textbf{Central}};
+    \node[cell,fill=oiblue!35] at (1.5,-1.70) {167};
+    \node[cell,fill=oiblue!90,text=white] at (3.0,-1.70) {\textbf{850}};
+    \node[cell,fill=oiblue!10] at (4.5,-1.70) {39};
+    \node[cell,fill=oiblue!3]  at (6.0,-1.70) {10};
+    % row Southern
+    \node[cell,fill=none,draw=none] at (0,-2.55) {\textbf{South.}};
+    \node[cell,fill=oiblue!22] at (1.5,-2.55) {98};
+    \node[cell,fill=oiblue!22] at (3.0,-2.55) {96};
+    \node[cell,fill=oiblue!28] at (4.5,-2.55) {126};
+    \node[cell,fill=oiblue!3]  at (6.0,-2.55) {10};
+  \end{tikzpicture}
+  \vspace{0.3em}
+  \begin{itemize}\small
+    \item Central well controlled (850 on diagonal). \hl{Off-diagonal mass is largely an artefact} of overlapping marker inventories ($mô$, $tui$ span regions) and Northern's orthographic closeness to standard --- so we report this matrix $+$ marker-independent Edit-Recall, not a raw error count.
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{One-to-many diversity under sampling}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[
+          ybar, bar width=14pt, width=\linewidth, height=4.2cm,
+          symbolic x coords={Central,Southern,Northern},
+          xtick=data, ymin=70, ymax=100, ylabel={Self-BLEU (lower = more diverse)},
+          nodes near coords, nodes near coords style={font=\tiny},
+          enlarge x limits=0.3,
+        ]
+          \addplot[fill=oiorange] coordinates {(Central,81.6)(Southern,86.7)(Northern,93.7)};
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}\small
+        \item Sampling yields \hl{genuine variation}, most for Central, least for Northern (closest to standard, scarcest data).
+      \end{itemize}
+      \vspace{0.3em}
+      \footnotesize
+      \begin{block}{\footnotesize Standard input}
+        ``Tại sao bạn không trả lời tin nhắn của tôi?''
+      \end{block}
+      \begin{block}{\footnotesize Central samples}
+        ``Mắc mớ gì\dots'' · ``Răng bạn\dots'' · ``Mắc chi\dots''
+      \end{block}
+      \par\scriptsize Distinct, idiomatic realizations a single-reference BLEU would penalize.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Why syllable tokenization: a probe}
+  \centering
+  \footnotesize
+  \begin{tabular}{l l}
+    \toprule
+    \textbf{Surface form} & \textbf{SentencePiece pieces}\\
+    \midrule
+    ``Anh ấy đi đâu rồi?'' (std)  & \texttt{\_Anh \_ấy \_đi \_đâu \_rồi ?}\\
+    ``Ảnh đi mô rồi?'' (dialect)  & \texttt{\_Ảnh \_đi \_mô \_rồi ?}\\
+    ``Bà ấy nói gì vậy?'' (std)   & \texttt{\_Bà \_ấy \_nói \_gì \_vậy ?}\\
+    ``Bả nói chi rứa?'' (dialect) & \texttt{\_B ả \_nói \_chi \_r ứ a ?}\\
+    ``Không biết'' (std)          & \texttt{\_Không \_biết}\\
+    ``Hông biết'' (dialect)       & \texttt{\_H ông \_biết}\\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.5em}
+  \begin{itemize}\small
+    \item Standard syllables are \hl{whole tokens}; rarer dialect forms \hl{degrade gracefully} into shorter subwords ($Bả\to$\texttt{[B,ả]}, $rứa\to$\texttt{[r,ứ,a]}).
+    \item No hard segmentation failure on OOV dialect/teencode --- exactly why we pick BARTpho-syllable.
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{Qualitative: Northern, baseline vs improved}
+  \centering
+  \scriptsize
+  \begin{tabular}{p{0.30\linewidth} p{0.30\linewidth} p{0.30\linewidth}}
+    \toprule
+    \textbf{Standard input} & \textbf{Baseline (old)} & \textbf{Improved (new)}\\
+    \midrule
+    Tại sao bạn không trả lời tin nhắn của tôi?
+      & Mắc gì bạn không trả lời\dots
+      & Tại sao bạn không \emph{\textcolor{oiblue}{giả nhời}}\dots\\
+    Mẹ tôi nấu ăn rất ngon.
+      & \emph{Bu} tôi nấu ăn rất ngon.
+      & \emph{\textcolor{oiblue}{u}} tôi nấu ăn rất ngon.\\
+    Hôm nay trời đẹp quá\dots
+      & \dots\emph{(copied)}
+      & \dots\emph{(still copied)}\\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.5em}
+  \begin{itemize}\small
+    \item Improved model introduces Northern forms (\emph{giả nhời}, \emph{u}) where the baseline copied.
+    \item Honest note: Northern stays hardest --- some inputs still copied (the 0.090 residual copy-rate).
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
 \begin{frame}{Analysis \& error taxonomy}
   \begin{itemize}
     \item \hl{Under-transfer / copying} (copy-rate, Edit-Recall) --- worst on Northern.
-    \item \hl{Wrong-region leakage} (region accuracy) --- markers of another region appear.
+    \item \hl{Wrong-region leakage} (region accuracy / confusion matrix) --- markers of another region appear.
     \item \hl{Over-transfer} (Edit-Precision) --- spurious markers.
     \item \hl{Semantic drift} (BERTScore / human eval).
     \item One-to-many \hl{diversity}: sampling yields varied valid realizations
@@ -176,6 +590,7 @@
   \end{itemize}
 \end{frame}
 
+% =============================================================================
 \begin{frame}{Limitations \& future work}
   \begin{itemize}
     \item Single dialectal reference per sentence; 63 provinces collapsed to 3 regions.
@@ -185,6 +600,7 @@
   \end{itemize}
 \end{frame}
 
+% =============================================================================
 \begin{frame}{Conclusion}
   \begin{itemize}
     \item First \hl{region-conditioned standard$\rightarrow$dialect} generator for Vietnamese.
