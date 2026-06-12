@@ -1,0 +1,221 @@
+\begin{thebibliography}{25}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abdul-Mageed et~al.(2024)Abdul-Mageed, Keleg, Elmadany, Zhang, Hamed,
+  Magdy, Bouamor, and Habash]{nadi2024}
+Muhammad Abdul-Mageed, Amr Keleg, AbdelRahim Elmadany, Chiyu Zhang, Injy Hamed,
+  Walid Magdy, Houda Bouamor, and Nizar Habash.
+\newblock {NADI} 2024: The fifth nuanced {A}rabic dialect identification shared
+  task.
+\newblock In \emph{Proceedings of the Second Arabic Natural Language Processing
+  Conference (ArabicNLP 2024)}. Association for Computational Linguistics,
+  2024.
+\newblock URL \url{https://arxiv.org/abs/2407.04910}.
+
+\bibitem[Banerjee and Lavie(2005)]{banerjee2005meteor}
+Satanjeev Banerjee and Alon Lavie.
+\newblock {METEOR}: An automatic metric for {MT} evaluation with improved
+  correlation with human judgments.
+\newblock In \emph{Proceedings of the ACL Workshop on Intrinsic and Extrinsic
+  Evaluation Measures for Machine Translation and/or Summarization}, pages
+  65--72. Association for Computational Linguistics, 2005.
+\newblock URL \url{https://aclanthology.org/W05-0909}.
+
+\bibitem[Do et~al.(2021)Do, Nguyen, Bui, and Vo]{nguyen2021vsec}
+Dinh-Truong Do, Ha~Thanh Nguyen, Thang~Ngoc Bui, and Hoang~Dinh Vo.
+\newblock {VSEC}: Transformer-based model for {V}ietnamese spelling correction.
+\newblock In \emph{PRICAI 2021: Trends in Artificial Intelligence}, 2021.
+\newblock URL \url{https://arxiv.org/abs/2111.00640}.
+
+\bibitem[Edunov et~al.(2018)Edunov, Ott, Auli, and
+  Grangier]{edunov2018understanding}
+Sergey Edunov, Myle Ott, Michael Auli, and David Grangier.
+\newblock Understanding back-translation at scale.
+\newblock In \emph{Proceedings of the 2018 Conference on Empirical Methods in
+  Natural Language Processing}, EMNLP 2018, pages 489--500. Association for
+  Computational Linguistics, 2018.
+\newblock URL \url{https://aclanthology.org/D18-1045}.
+
+\bibitem[Lample et~al.(2018)Lample, Conneau, Denoyer, and
+  Ranzato]{lample2018unsupervised}
+Guillaume Lample, Alexis Conneau, Ludovic Denoyer, and Marc'Aurelio Ranzato.
+\newblock Unsupervised machine translation using monolingual corpora only.
+\newblock In \emph{6th International Conference on Learning Representations
+  (ICLR 2018)}, 2018.
+\newblock URL \url{https://openreview.net/forum?id=rkYTTf-AZ}.
+
+\bibitem[Le and Luu(2023)]{le2023vietnamese}
+Thang Le and Anh~Tuan Luu.
+\newblock {V}ietnamese {C}entral-{N}orthern dialect text transfer.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2023}, pages 13839--13855. Association for Computational Linguistics,
+  2023.
+\newblock URL \url{https://aclanthology.org/2023.findings-emnlp.925}.
+
+\bibitem[Lewis et~al.(2020)Lewis, Liu, Goyal, Ghazvininejad, Mohamed, Levy,
+  Stoyanov, and Zettlemoyer]{lewis2020bart}
+Mike Lewis, Yinhan Liu, Naman Goyal, Marjan Ghazvininejad, Abdelrahman Mohamed,
+  Omer Levy, Veselin Stoyanov, and Luke Zettlemoyer.
+\newblock {BART}: Denoising sequence-to-sequence pre-training for natural
+  language generation, translation, and comprehension.
+\newblock pages 7871--7880, 2020.
+\newblock URL \url{https://aclanthology.org/2020.acl-main.703}.
+
+\bibitem[Lin(2004)]{lin2004rouge}
+Chin-Yew Lin.
+\newblock {ROUGE}: A package for automatic evaluation of summaries.
+\newblock In \emph{Text Summarization Branches Out}, pages 74--81. Association
+  for Computational Linguistics, 2004.
+\newblock URL \url{https://aclanthology.org/W04-1013}.
+
+\bibitem[Liu et~al.(2020)Liu, Gu, Goyal, Li, Edunov, Ghazvininejad, Lewis, and
+  Zettlemoyer]{liu2020mbart}
+Yinhan Liu, Jiatao Gu, Naman Goyal, Xian Li, Sergey Edunov, Marjan
+  Ghazvininejad, Mike Lewis, and Luke Zettlemoyer.
+\newblock Multilingual denoising pre-training for neural machine translation.
+\newblock \emph{Transactions of the Association for Computational Linguistics},
+  8:\penalty0 726--742, 2020.
+\newblock URL \url{https://aclanthology.org/2020.tacl-1.47}.
+
+\bibitem[Nguyen and Nguyen(2020)]{nguyen2020phobert}
+Dat~Quoc Nguyen and Anh~Tuan Nguyen.
+\newblock {PhoBERT}: Pre-trained language models for {V}ietnamese.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2020}, pages 1037--1042. Association for Computational Linguistics,
+  2020.
+\newblock URL \url{https://aclanthology.org/2020.findings-emnlp.92}.
+
+\bibitem[Nguyen et~al.(2024)Nguyen, Le, and Nguyen]{nguyen2024vilexnorm}
+Thanh-Nhi Nguyen, Thanh-Phong Le, and Kiet~Van Nguyen.
+\newblock {ViLexNorm}: A lexical normalization corpus for {V}ietnamese social
+  media text.
+\newblock In \emph{Proceedings of the 18th Conference of the European Chapter
+  of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  EACL 2024, pages 1421--1437. Association for Computational Linguistics, 2024.
+\newblock URL \url{https://aclanthology.org/2024.eacl-long.85}.
+
+\bibitem[Papineni et~al.(2002)Papineni, Roukos, Ward, and
+  Zhu]{papineni2002bleu}
+Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu.
+\newblock {BLEU}: a method for automatic evaluation of machine translation.
+\newblock In \emph{Proceedings of the 40th Annual Meeting of the Association
+  for Computational Linguistics}, ACL 2002, pages 311--318. Association for
+  Computational Linguistics, 2002.
+\newblock URL \url{https://aclanthology.org/P02-1040}.
+
+\bibitem[Phan et~al.(2022)Phan, Tran, Nguyen, and Trinh]{phan2022vit5}
+Long Phan, Hieu Tran, Hieu Nguyen, and Trieu~H. Trinh.
+\newblock {ViT5}: Pretrained text-to-text transformer for {V}ietnamese language
+  generation.
+\newblock In \emph{Proceedings of the 2022 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies: Student Research Workshop}, NAACL-HLT SRW 2022, pages 136--142.
+  Association for Computational Linguistics, 2022.
+\newblock URL \url{https://arxiv.org/abs/2205.06457}.
+
+\bibitem[Popovi\'{c}(2015)]{popovic2015chrf}
+Maja Popovi\'{c}.
+\newblock {chrF}: character n-gram f-score for automatic {MT} evaluation.
+\newblock In \emph{Proceedings of the Tenth Workshop on Statistical Machine
+  Translation}, WMT 2015, pages 392--395. Association for Computational
+  Linguistics, 2015.
+\newblock URL \url{https://aclanthology.org/W15-3049}.
+
+\bibitem[Post(2018)]{post2018sacrebleu}
+Matt Post.
+\newblock A call for clarity in reporting {BLEU} scores.
+\newblock In \emph{Proceedings of the Third Conference on Machine Translation:
+  Research Papers}, WMT 2018, pages 186--191. Association for Computational
+  Linguistics, 2018.
+\newblock URL \url{https://aclanthology.org/W18-6319}.
+
+\bibitem[Raffel et~al.(2020)Raffel, Shazeer, Roberts, Lee, Narang, Matena,
+  Zhou, Li, and Liu]{raffel2020t5}
+Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael
+  Matena, Yanqi Zhou, Wei Li, and Peter~J. Liu.
+\newblock Exploring the limits of transfer learning with a unified text-to-text
+  transformer.
+\newblock volume~21, pages 1--67, 2020.
+\newblock URL \url{https://jmlr.org/papers/v21/20-074.html}.
+
+\bibitem[Sennrich et~al.(2016{\natexlab{a}})Sennrich, Haddow, and
+  Birch]{sennrich2016bpe}
+Rico Sennrich, Barry Haddow, and Alexandra Birch.
+\newblock Neural machine translation of rare words with subword units.
+\newblock In \emph{Proceedings of the 54th Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, ACL 2016, pages
+  1715--1725. Association for Computational Linguistics, 2016{\natexlab{a}}.
+\newblock URL \url{https://aclanthology.org/P16-1162}.
+
+\bibitem[Sennrich et~al.(2016{\natexlab{b}})Sennrich, Haddow, and
+  Birch]{sennrich2016improving}
+Rico Sennrich, Barry Haddow, and Alexandra Birch.
+\newblock Improving neural machine translation models with monolingual data.
+\newblock In \emph{Proceedings of the 54th Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, ACL 2016, pages
+  86--96. Association for Computational Linguistics, 2016{\natexlab{b}}.
+\newblock URL \url{https://aclanthology.org/P16-1009}.
+
+\bibitem[Shen et~al.(2017)Shen, Lei, Barzilay, and Jaakkola]{shen2017style}
+Tianxiao Shen, Tao Lei, Regina Barzilay, and Tommi Jaakkola.
+\newblock Style transfer from non-parallel text by cross-alignment.
+\newblock In \emph{Advances in Neural Information Processing Systems 30
+  (NeurIPS 2017)}, pages 6830--6841, 2017.
+\newblock URL
+  \url{https://papers.nips.cc/paper/2017/hash/2d2c8394e31101a261abf1784302bf75-Abstract.html}.
+
+\bibitem[Szegedy et~al.(2016)Szegedy, Vanhoucke, Ioffe, Shlens, and
+  Wojna]{szegedy2016labelsmoothing}
+Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jon Shlens, and Zbigniew
+  Wojna.
+\newblock Rethinking the inception architecture for computer vision.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 2818--2826, 2016.
+\newblock URL \url{https://doi.org/10.1109/CVPR.2016.308}.
+
+\bibitem[Ta et~al.(2026)Ta, Nguyen, and Nguyen]{ta2026vidia2std}
+{\relax and others}~Ta, Van~Dinh Nguyen, and Kiet~Van Nguyen.
+\newblock {ViDia2Std}: A benchmark dataset for vietnamese dialect-to-standard
+  text normalization, 2026.
+\newblock URL \url{https://arxiv.org/abs/2603.10211}.
+\newblock AAAI 2026 (Oral).
+
+\bibitem[Tran et~al.(2022)Tran, Le, and Nguyen]{tran2022bartpho}
+Nguyen~Luong Tran, Duong~Minh Le, and Dat~Quoc Nguyen.
+\newblock {BARTpho}: Pre-trained sequence-to-sequence models for {V}ietnamese.
+\newblock In \emph{Proceedings of the 23rd Annual Conference of the
+  International Speech Communication Association (INTERSPEECH)}, pages
+  1751--1755, 2022.
+\newblock URL \url{https://arxiv.org/abs/2109.09701}.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock \emph{Advances in Neural Information Processing Systems 30 (NeurIPS
+  2017)}, pages 5998--6008, 2017.
+\newblock URL
+  \url{https://papers.nips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html}.
+
+\bibitem[Vu et~al.(2018)Vu, Nguyen, Nguyen, Dras, and Johnson]{vu2018vncorenlp}
+Thanh Vu, Dat~Quoc Nguyen, Dai~Quoc Nguyen, Mark Dras, and Mark Johnson.
+\newblock {VnCoreNLP}: A {V}ietnamese natural language processing toolkit.
+\newblock In \emph{Proceedings of the 2018 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Demonstrations},
+  pages 56--60, 2018.
+\newblock URL \url{https://arxiv.org/abs/1801.01331}.
+
+\bibitem[Zhang et~al.(2020)Zhang, Kishore, Wu, Weinberger, and
+  Artzi]{zhang2020bertscore}
+Tianyi Zhang, Varsha Kishore, Felix Wu, Kilian~Q. Weinberger, and Yoav Artzi.
+\newblock {BERTScore}: Evaluating text generation with {BERT}.
+\newblock In \emph{8th International Conference on Learning Representations
+  (ICLR 2020)}, 2020.
+\newblock URL \url{https://openreview.net/forum?id=SkeHuCVFDr}.
+
+\end{thebibliography}

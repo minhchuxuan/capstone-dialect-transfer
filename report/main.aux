@@ -1,0 +1,213 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand*\HyPL@Entry[1]{}
+\HyPL@Entry{0<</S/D>>}
+\citation{ta2026vidia2std}
+\citation{nadi2024}
+\citation{edunov2018understanding}
+\citation{edunov2018understanding}
+\HyPL@Entry{1<</S/D>>}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\citation{tran2022bartpho}
+\citation{lewis2020bart,liu2020mbart}
+\citation{phan2022vit5}
+\citation{raffel2020t5}
+\citation{nguyen2020phobert}
+\citation{vu2018vncorenlp}
+\citation{ta2026vidia2std}
+\citation{nadi2024}
+\citation{nguyen2024vilexnorm}
+\citation{nguyen2021vsec}
+\citation{shen2017style}
+\citation{lample2018unsupervised}
+\citation{le2023vietnamese}
+\citation{sennrich2016improving}
+\citation{edunov2018understanding}
+\citation{papineni2002bleu,post2018sacrebleu}
+\citation{popovic2015chrf}
+\citation{lin2004rouge}
+\citation{banerjee2005meteor}
+\citation{zhang2020bertscore}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{2}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Vietnamese pretrained seq2seq models.}{2}{paragraph*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Dialect-to-standard normalization.}{2}{paragraph*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Text style transfer and dialect generation.}{2}{paragraph*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Back-translation and monolingual data.}{2}{paragraph*.4}\protected@file@percent }
+\citation{vu2018vncorenlp}
+\citation{nguyen2020phobert}
+\citation{tran2022bartpho}
+\citation{sennrich2016bpe}
+\citation{vaswani2017attention}
+\citation{szegedy2016labelsmoothing}
+\@writefile{toc}{\contentsline {paragraph}{Evaluation of generation.}{3}{paragraph*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Background and NLP Fundamentals}{3}{section.3}\protected@file@percent }
+\newlabel{sec:background}{{3}{3}{Background and NLP Fundamentals}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Tokenization for Vietnamese: syllables vs.\ words vs.\ subwords}{3}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:bg-tok}{{3.1}{3}{Tokenization for Vietnamese: syllables vs.\ words vs.\ subwords}{subsection.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Conditional sequence-to-sequence generation}{3}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:bg-seq2seq}{{3.2}{3}{Conditional sequence-to-sequence generation}{subsection.3.2}{}}
+\newlabel{eq:seq2seq}{{1}{3}{Conditional sequence-to-sequence generation}{equation.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Training objective: teacher forcing, cross-entropy, label smoothing}{3}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:bg-train}{{3.3}{3}{Training objective: teacher forcing, cross-entropy, label smoothing}{subsection.3.3}{}}
+\newlabel{eq:ce}{{2}{3}{Training objective: teacher forcing, cross-entropy, label smoothing}{equation.3.2}{}}
+\citation{edunov2018understanding}
+\citation{sennrich2016improving,edunov2018understanding}
+\citation{edunov2018understanding}
+\citation{edunov2018understanding}
+\citation{ta2026vidia2std}
+\citation{nguyen2024vilexnorm}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Decoding: beam search vs.\ sampling}{4}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:bg-decode}{{3.4}{4}{Decoding: beam search vs.\ sampling}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Back-translation}{4}{subsection.3.5}\protected@file@percent }
+\newlabel{sec:bg-bt}{{3.5}{4}{Back-translation}{subsection.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}The one-to-many problem and its evaluation challenge}{4}{subsection.3.6}\protected@file@percent }
+\newlabel{sec:bg-one2many}{{3.6}{4}{The one-to-many problem and its evaluation challenge}{subsection.3.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Datasets}{4}{section.4}\protected@file@percent }
+\newlabel{sec:data}{{4}{4}{Datasets}{section.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{ViDia2Std (Features A and C).}{4}{paragraph*.6}\protected@file@percent }
+\citation{tran2022bartpho}
+\citation{liu2020mbart}
+\citation{raffel2020t5}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Regional imbalance in ViDia2Std: Central dialect dominates while Northern is severely under-represented, motivating oversampling and targeted back-translation. }}{5}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:imbalance}{{1}{5}{Regional imbalance in ViDia2Std: Central dialect dominates while Northern is severely under-represented, motivating oversampling and targeted back-translation}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {paragraph}{ViLexNorm (Feature B).}{5}{paragraph*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Unified format.}{5}{paragraph*.8}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Per-task example counts in the processed splits.}}{5}{table.caption.9}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:datastats}{{1}{5}{Per-task example counts in the processed splits}{table.caption.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Method}{5}{section.5}\protected@file@percent }
+\newlabel{sec:method}{{5}{5}{Method}{section.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Composition of the unified multi-task training set across the five task prefixes (three regions of Feature~C, plus Features~A and~B). }}{6}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:composition}{{2}{6}{Composition of the unified multi-task training set across the five task prefixes (three regions of Feature~C, plus Features~A and~B)}{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Architecture and multi-task task-prefix conditioning}{6}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:method-arch}{{5.1}{6}{Architecture and multi-task task-prefix conditioning}{subsection.5.1}{}}
+\newlabel{eq:prefixed-source}{{3}{6}{Architecture and multi-task task-prefix conditioning}{equation.5.3}{}}
+\newlabel{eq:method-seq2seq}{{4}{6}{Architecture and multi-task task-prefix conditioning}{equation.5.4}{}}
+\newlabel{eq:method-loss}{{5}{6}{Architecture and multi-task task-prefix conditioning}{equation.5.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Reverse-corpus construction for Feature C}{6}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:method-reverse}{{5.2}{6}{Reverse-corpus construction for Feature C}{subsection.5.2}{}}
+\citation{sennrich2016improving,edunov2018understanding}
+\citation{edunov2018understanding}
+\newlabel{eq:forward-pair}{{6}{7}{Reverse-corpus construction for Feature C}{equation.5.6}{}}
+\newlabel{eq:reverse-pair}{{7}{7}{Reverse-corpus construction for Feature C}{equation.5.7}{}}
+\newlabel{eq:lexnorm-pair}{{8}{7}{Reverse-corpus construction for Feature C}{equation.5.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Sampling-based back-translation for data-starved regions}{7}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:method-bt}{{5.3}{7}{Sampling-based back-translation for data-starved regions}{subsection.5.3}{}}
+\newlabel{eq:bt-sample}{{9}{7}{Sampling-based back-translation for data-starved regions}{equation.5.9}{}}
+\newlabel{eq:bt-pair}{{10}{7}{Sampling-based back-translation for data-starved regions}{equation.5.10}{}}
+\newlabel{eq:bt-filter}{{11}{7}{Sampling-based back-translation for data-starved regions}{equation.5.11}{}}
+\newlabel{eq:bt-set}{{12}{7}{Sampling-based back-translation for data-starved regions}{equation.5.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Region rebalancing}{8}{subsection.5.4}\protected@file@percent }
+\newlabel{sec:method-rebalance}{{5.4}{8}{Region rebalancing}{subsection.5.4}{}}
+\newlabel{eq:rebalanced-corpus}{{13}{8}{Region rebalancing}{equation.5.13}{}}
+\newlabel{eq:full-training-set}{{14}{8}{Region rebalancing}{equation.5.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Transfer-aware model selection}{8}{subsection.5.5}\protected@file@percent }
+\newlabel{sec:method-select}{{5.5}{8}{Transfer-aware model selection}{subsection.5.5}{}}
+\newlabel{eq:selection-score}{{15}{8}{Transfer-aware model selection}{equation.5.15}{}}
+\newlabel{eq:selected-checkpoint}{{16}{8}{Transfer-aware model selection}{equation.5.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Baselines}{8}{section.6}\protected@file@percent }
+\newlabel{sec:baselines}{{6}{8}{Baselines}{section.6}{}}
+\citation{papineni2002bleu}
+\citation{post2018sacrebleu}
+\citation{popovic2015chrf}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Baseline results per task on the test split (BLEU/chrF on a 0--100 scale; ROUGE-L, copy-rate, DFR, edit-recall in $[0,1]$; ERR may be negative). The \textbf  {transfer} column is WER/CER for Dialect-to-standard, DFR/edit-recall for the std$\rightarrow $dialect tasks, and ERR for Lexical normalization. Note that Leave-As-Is (copy) scores high BLEU yet edit-recall $0$---the copy trap.}}{9}{table.caption.12}\protected@file@percent }
+\newlabel{tab:baselines}{{2}{9}{Baseline results per task on the test split (BLEU/chrF on a 0--100 scale; ROUGE-L, copy-rate, DFR, edit-recall in $[0,1]$; ERR may be negative). The \textbf {transfer} column is WER/CER for Dialect-to-standard, DFR/edit-recall for the std$\rightarrow $dialect tasks, and ERR for Lexical normalization. Note that Leave-As-Is (copy) scores high BLEU yet edit-recall $0$---the copy trap}{table.caption.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Evaluation Metrics}{9}{section.7}\protected@file@percent }
+\newlabel{sec:metrics}{{7}{9}{Evaluation Metrics}{section.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{BLEU.}{9}{paragraph*.14}\protected@file@percent }
+\citation{lin2004rouge}
+\citation{banerjee2005meteor}
+\citation{ta2026vidia2std}
+\citation{zhang2020bertscore}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Baseline comparison across tasks. The contrast between high overlap and low transfer for the copy baseline is the key reading. }}{10}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:baseline}{{3}{10}{Baseline comparison across tasks. The contrast between high overlap and low transfer for the copy baseline is the key reading}{figure.caption.13}{}}
+\@writefile{toc}{\contentsline {paragraph}{chrF.}{10}{paragraph*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{ROUGE-L.}{10}{paragraph*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{METEOR.}{10}{paragraph*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{WER / CER.}{10}{paragraph*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{BERTScore.}{10}{paragraph*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{ERR (Error Reduction Rate) --- Feature B.}{10}{paragraph*.20}\protected@file@percent }
+\newlabel{eq:err}{{19}{10}{ERR (Error Reduction Rate) --- Feature B}{equation.7.19}{}}
+\citation{ta2026vidia2std}
+\@writefile{toc}{\contentsline {paragraph}{DFR (Dialect Feature Recall) --- Feature C.}{11}{paragraph*.21}\protected@file@percent }
+\newlabel{eq:dfr}{{20}{11}{DFR (Dialect Feature Recall) --- Feature C}{equation.7.20}{}}
+\@writefile{toc}{\contentsline {paragraph}{Dialectal Edit-Recall (marker-independent).}{11}{paragraph*.22}\protected@file@percent }
+\newlabel{eq:editrecall}{{21}{11}{Dialectal Edit-Recall (marker-independent)}{equation.7.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{Region accuracy (marker-based).}{11}{paragraph*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Copy-rate.}{11}{paragraph*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Results}{11}{section.8}\protected@file@percent }
+\newlabel{sec:results}{{8}{11}{Results}{section.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Normalization (Feature A) positioning.}{11}{paragraph*.25}\protected@file@percent }
+\citation{ta2026vidia2std}
+\citation{ta2026vidia2std}
+\citation{ta2026vidia2std}
+\citation{ta2026vidia2std}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Main results of the multi-task model per task (test split). BLEU/chrF on a 0--100 scale; ROUGE-L, copy-rate, DFR, edit-recall in $[0,1]$; WER/CER lower is better. ViDia2Std reference numbers are quoted from \citet  {ta2026vidia2std} (BLEU/ROUGE-L rescaled to the 0--100 / $[0,1]$ conventions used here).}}{12}{table.caption.29}\protected@file@percent }
+\newlabel{tab:main}{{3}{12}{Main results of the multi-task model per task (test split). BLEU/chrF on a 0--100 scale; ROUGE-L, copy-rate, DFR, edit-recall in $[0,1]$; WER/CER lower is better. ViDia2Std reference numbers are quoted from \citet {ta2026vidia2std} (BLEU/ROUGE-L rescaled to the 0--100 / $[0,1]$ conventions used here)}{table.caption.29}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Improvement of the final model over the baseline model on the four dialect tasks (test split), \emph  {baseline$\rightarrow $improved}. For Dialect-to-standard the transfer column is WER/CER (lower is better); for the std$\rightarrow $dialect tasks it is DFR / Edit-Recall. The headline is \textbf  {Northern}, the data-starved region targeted by rebalancing and back-translation: Edit-Recall and DFR rise sharply while copy-rate \emph  {falls}. Central and Southern are maintained or slightly improved, and Feature~A is preserved.}}{12}{table.caption.30}\protected@file@percent }
+\newlabel{tab:improvement}{{4}{12}{Improvement of the final model over the baseline model on the four dialect tasks (test split), \emph {baseline$\rightarrow $improved}. For Dialect-to-standard the transfer column is WER/CER (lower is better); for the std$\rightarrow $dialect tasks it is DFR / Edit-Recall. The headline is \textbf {Northern}, the data-starved region targeted by rebalancing and back-translation: Edit-Recall and DFR rise sharply while copy-rate \emph {falls}. Central and Southern are maintained or slightly improved, and Feature~A is preserved}{table.caption.30}{}}
+\@writefile{toc}{\contentsline {paragraph}{Generation (Feature C).}{12}{paragraph*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Lexical normalization (Feature B).}{12}{paragraph*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Improvement over the baseline model.}{12}{paragraph*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Analysis and Error Taxonomy}{12}{section.9}\protected@file@percent }
+\newlabel{sec:analysis}{{9}{12}{Analysis and Error Taxonomy}{section.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Main multi-task results across the five task variants. }}{13}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:main}{{4}{13}{Main multi-task results across the five task variants}{figure.caption.31}{}}
+\newlabel{fig:copy}{{5a}{13}{Copy (LAI) BLEU vs.\ model BLEU}{figure.caption.32}{}}
+\newlabel{sub@fig:copy}{{a}{13}{Copy (LAI) BLEU vs.\ model BLEU}{figure.caption.32}{}}
+\newlabel{fig:dfr}{{5b}{13}{Dialect Feature Recall by region}{figure.caption.32}{}}
+\newlabel{sub@fig:dfr}{{b}{13}{Dialect Feature Recall by region}{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The copy baseline inflates BLEU (left), motivating the transfer metrics (right). \emph  {(Figures generated by a separate plotting step.)}}}{13}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:copy-dfr}{{5}{13}{The copy baseline inflates BLEU (left), motivating the transfer metrics (right). \emph {(Figures generated by a separate plotting step.)}}{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Learned lexical substitutions}{13}{subsection.9.1}\protected@file@percent }
+\newlabel{sec:analysis-subs}{{9.1}{13}{Learned lexical substitutions}{subsection.9.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Most frequent learned standard$\rightarrow $dialect lexical substitutions per region (token, with output count), mined from the model's test outputs. All are well-attested regional forms.}}{14}{table.caption.33}\protected@file@percent }
+\newlabel{tab:subs}{{5}{14}{Most frequent learned standard$\rightarrow $dialect lexical substitutions per region (token, with output count), mined from the model's test outputs. All are well-attested regional forms}{table.caption.33}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Region-confusion matrix. Rows: requested region; columns: region detected by the heuristic marker classifier in the output (``none'' = no marker found). Off-diagonal mass is inflated by overlapping marker inventories and by Northern's orthographic closeness to standard; see text.}}{14}{table.caption.34}\protected@file@percent }
+\newlabel{tab:confusion}{{6}{14}{Region-confusion matrix. Rows: requested region; columns: region detected by the heuristic marker classifier in the output (``none'' = no marker found). Off-diagonal mass is inflated by overlapping marker inventories and by Northern's orthographic closeness to standard; see text}{table.caption.34}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Region controllability and the confusion matrix}{14}{subsection.9.2}\protected@file@percent }
+\newlabel{sec:analysis-region}{{9.2}{14}{Region controllability and the confusion matrix}{subsection.9.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}One-to-many diversity under sampling}{14}{subsection.9.3}\protected@file@percent }
+\newlabel{sec:analysis-diversity}{{9.3}{14}{One-to-many diversity under sampling}{subsection.9.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Tokenization: syllables vs.\ subwords}{14}{subsection.9.4}\protected@file@percent }
+\newlabel{sec:analysis-tok}{{9.4}{14}{Tokenization: syllables vs.\ subwords}{subsection.9.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces SentencePiece tokenization of standard vs.\ dialect surface forms. Standard syllables are whole pieces; rarer dialect forms fragment into subwords (\texttt  {{\dejavumono \symbol  {"2581}}} marks a word-initial piece).}}{15}{table.caption.35}\protected@file@percent }
+\newlabel{tab:tok}{{7}{15}{SentencePiece tokenization of standard vs.\ dialect surface forms. Standard syllables are whole pieces; rarer dialect forms fragment into subwords (\texttt {\spm } marks a word-initial piece)}{table.caption.35}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Northern std$\rightarrow $dialect: baseline (old) vs.\ improved (new) outputs. The improved model introduces Northern forms (\emph  {giả nhời}, \emph  {u}) where the baseline copied; the last row shows a still-copied input.}}{15}{table.caption.36}\protected@file@percent }
+\newlabel{tab:qual}{{8}{15}{Northern std$\rightarrow $dialect: baseline (old) vs.\ improved (new) outputs. The improved model introduces Northern forms (\emph {giả nhời}, \emph {u}) where the baseline copied; the last row shows a still-copied input}{table.caption.36}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Qualitative examples: Northern before and after}{15}{subsection.9.5}\protected@file@percent }
+\newlabel{sec:analysis-qual}{{9.5}{15}{Qualitative examples: Northern before and after}{subsection.9.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Limitations}{15}{section.10}\protected@file@percent }
+\newlabel{sec:limitations}{{10}{15}{Limitations}{section.10}{}}
+\bibstyle{plainnat}
+\bibdata{references}
+\bibcite{nadi2024}{{1}{2024}{{Abdul-Mageed et~al.}}{{Abdul-Mageed, Keleg, Elmadany, Zhang, Hamed, Magdy, Bouamor, and Habash}}}
+\bibcite{banerjee2005meteor}{{2}{2005}{{Banerjee and Lavie}}{{}}}
+\bibcite{nguyen2021vsec}{{3}{2021}{{Do et~al.}}{{Do, Nguyen, Bui, and Vo}}}
+\bibcite{edunov2018understanding}{{4}{2018}{{Edunov et~al.}}{{Edunov, Ott, Auli, and Grangier}}}
+\bibcite{lample2018unsupervised}{{5}{2018}{{Lample et~al.}}{{Lample, Conneau, Denoyer, and Ranzato}}}
+\bibcite{le2023vietnamese}{{6}{2023}{{Le and Luu}}{{}}}
+\bibcite{lewis2020bart}{{7}{2020}{{Lewis et~al.}}{{Lewis, Liu, Goyal, Ghazvininejad, Mohamed, Levy, Stoyanov, and Zettlemoyer}}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{16}{section.11}\protected@file@percent }
+\newlabel{sec:conclusion}{{11}{16}{Conclusion}{section.11}{}}
+\bibcite{lin2004rouge}{{8}{2004}{{Lin}}{{}}}
+\bibcite{liu2020mbart}{{9}{2020}{{Liu et~al.}}{{Liu, Gu, Goyal, Li, Edunov, Ghazvininejad, Lewis, and Zettlemoyer}}}
+\bibcite{nguyen2020phobert}{{10}{2020}{{Nguyen and Nguyen}}{{}}}
+\bibcite{nguyen2024vilexnorm}{{11}{2024}{{Nguyen et~al.}}{{Nguyen, Le, and Nguyen}}}
+\bibcite{papineni2002bleu}{{12}{2002}{{Papineni et~al.}}{{Papineni, Roukos, Ward, and Zhu}}}
+\bibcite{phan2022vit5}{{13}{2022}{{Phan et~al.}}{{Phan, Tran, Nguyen, and Trinh}}}
+\bibcite{popovic2015chrf}{{14}{2015}{{Popovi\'{c}}}{{}}}
+\bibcite{post2018sacrebleu}{{15}{2018}{{Post}}{{}}}
+\bibcite{raffel2020t5}{{16}{2020}{{Raffel et~al.}}{{Raffel, Shazeer, Roberts, Lee, Narang, Matena, Zhou, Li, and Liu}}}
+\bibcite{sennrich2016bpe}{{17}{2016{a}}{{Sennrich et~al.}}{{Sennrich, Haddow, and Birch}}}
+\bibcite{sennrich2016improving}{{18}{2016{b}}{{Sennrich et~al.}}{{Sennrich, Haddow, and Birch}}}
+\bibcite{shen2017style}{{19}{2017}{{Shen et~al.}}{{Shen, Lei, Barzilay, and Jaakkola}}}
+\bibcite{szegedy2016labelsmoothing}{{20}{2016}{{Szegedy et~al.}}{{Szegedy, Vanhoucke, Ioffe, Shlens, and Wojna}}}
+\bibcite{ta2026vidia2std}{{21}{2026}{{Ta et~al.}}{{Ta, Nguyen, and Nguyen}}}
+\bibcite{tran2022bartpho}{{22}{2022}{{Tran et~al.}}{{Tran, Le, and Nguyen}}}
+\bibcite{vaswani2017attention}{{23}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin}}}
+\bibcite{vu2018vncorenlp}{{24}{2018}{{Vu et~al.}}{{Vu, Nguyen, Nguyen, Dras, and Johnson}}}
+\bibcite{zhang2020bertscore}{{25}{2020}{{Zhang et~al.}}{{Zhang, Kishore, Wu, Weinberger, and Artzi}}}
+\gdef \@abspage@last{19}
