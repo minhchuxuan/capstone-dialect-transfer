@@ -18,8 +18,8 @@
 \usepackage{float}
 \usepackage{microtype}
 % The SentencePiece word-boundary marker U+2581 ("▁") is absent from Latin Modern
-% Mono; pull it from DejaVu Sans Mono, which has the glyph, only for that symbol.
-\newfontfamily\dejavumono{DejaVu Sans Mono}
+% Mono; pull it from Menlo, which has the glyph, only for that symbol.
+\newfontfamily\dejavumono{Menlo}
 \newcommand{\spm}{{\dejavumono\symbol{"2581}}}
 
 % --- Math / tables / figures ------------------------------------------------
@@ -44,6 +44,9 @@
 \usepackage[colorlinks=true,linkcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{microtype}
 \setlength{\emergencystretch}{3em}
+\setlength{\parindent}{1em}              % small, consistent paragraph indent near the left margin
+\setlength{\tabcolsep}{4pt}              % tighter column padding (default 6pt)
+\renewcommand{\arraystretch}{0.95}       % slightly tighter rows (default 1.0)
 
 \newcommand{\ra}{\(\rightarrow\)\allowbreak{}}
 
@@ -443,7 +446,7 @@ Figure~\ref{fig:composition} shows the overall task composition.
 
 \begin{table}[H]
   \centering
-  \small
+  \footnotesize
   \caption{Per-task example counts in the processed splits.}
   \label{tab:datastats}
   \begin{tabular}{@{}l r r r@{}}
@@ -555,6 +558,15 @@ Figure~\ref{fig:composition} shows the overall task composition.
 % =============================================================================
 \section{Method}
 \label{sec:method}
+
+In this section we describe how a single model is trained to perform all five
+task variants. We cover the shared architecture and task-prefix conditioning
+(Section~\ref{sec:method-arch}), the construction of the reverse corpus that
+makes standard-to-dialect generation possible (Section~\ref{sec:method-reverse}),
+the sampling-based back-translation that augments data-starved regions
+(Section~\ref{sec:method-bt}), region rebalancing
+(Section~\ref{sec:method-rebalance}), and the transfer-aware criterion used for
+model selection (Section~\ref{sec:method-select}).
 
 \subsection{Architecture and multi-task task-prefix conditioning}
 \label{sec:method-arch}
@@ -807,7 +819,7 @@ Figure~\ref{fig:baseline} visualizes the comparison.
 
 \begin{table}[t]
   \centering
-  \small
+  \footnotesize
   \caption{Baseline results per task on the test split (BLEU/chrF on a 0--100
   scale; ROUGE-L, copy-rate, DFR, edit-recall in $[0,1]$; ERR may be negative).
   The \textbf{transfer} column is WER/CER for Dialect-to-standard, DFR/edit-recall
@@ -1035,7 +1047,7 @@ intervention was aimed, with no regression elsewhere.
 
 \begin{table}[t]
   \centering
-  \small
+  \footnotesize
   \caption{Main results of the multi-task model per task (test split). BLEU/chrF
   on a 0--100 scale; ROUGE-L, copy-rate, DFR, edit-recall in $[0,1]$; WER/CER lower
   is better. ViDia2Std reference numbers are quoted from \citet{ta2026vidia2std}
@@ -1061,7 +1073,7 @@ intervention was aimed, with no regression elsewhere.
 
 \begin{table}[t]
   \centering
-  \small
+  \footnotesize
   \caption{Improvement of the final model over the baseline model on the four
   dialect tasks (test split), \emph{baseline$\rightarrow$improved}. For
   Dialect-to-standard the transfer column is WER/CER (lower is better); for the
@@ -1146,7 +1158,7 @@ evidence that Feature~C learns genuine dialect lexicon rather than surface noise
 
 \begin{table}[t]
   \centering
-  \small
+  \footnotesize
   \caption{Most frequent learned standard$\rightarrow$dialect lexical
   substitutions per region (token, with output count), mined from the model's test
   outputs. All are well-attested regional forms.}
@@ -1188,7 +1200,7 @@ correct token changes regardless of which region's marker list claims them.
 
 \begin{table}[t]
   \centering
-  \small
+  \footnotesize
   \caption{Region-confusion matrix. Rows: requested region; columns: region
   detected by the heuristic marker classifier in the output (``none'' = no marker
   found). Off-diagonal mass is inflated by overlapping marker inventories and by
@@ -1235,7 +1247,7 @@ failure---exactly the property that motivates BARTpho-syllable for this task.
 
 \begin{table}[t]
   \centering
-  \small
+  \footnotesize
   \caption{SentencePiece tokenization of standard vs.\ dialect surface forms.
   Standard syllables are whole pieces; rarer dialect forms fragment into subwords
   (\texttt{\spm} marks a word-initial piece).}
@@ -1269,7 +1281,7 @@ $0.090$ residual copy-rate and its data scarcity.
 
 \begin{table}[t]
   \centering
-  \small
+  \footnotesize
   \caption{Northern std$\rightarrow$dialect: baseline (old) vs.\ improved (new)
   outputs. The improved model introduces Northern forms (\emph{giả nhời},
   \emph{u}) where the baseline copied; the last row shows a still-copied input.}
